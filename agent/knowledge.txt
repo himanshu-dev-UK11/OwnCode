@@ -1,0 +1,467 @@
+================================================================================
+OWNCODE KNOWLEDGE GUIDE — agent/ (AI Workspace Backend, Agents & Intelligence)
+================================================================================
+
+1. PURPOSE OF THIS FOLDER
+-------------------------
+The `agent/` folder contains the complete AI backend of OwnCode IDE, organized
+into 8 consolidated backend modules plus 2 specialized subfolders:
+  • `agent/providers/` : Local LLM (`llama.cpp`, `Ollama`, `Qwen`) & Cloud Providers
+  • `agent/models/`    : Model Catalog, Capability Profiles, Smart Router & Optimizer
+  • `chat_and_agents.py`           : `AIChatEngine`, `ConnectionManager`, and
+                                     specialized agents (`CoderAgent`, `DebuggerAgent`,
+                                     `PlannerAgent`)
+  • `context_and_memory.py`        : RAG Context Engine, Token Estimator, Symbol/Import
+                                     Graphs, `ProjectMemory`, and `DecisionMemory`
+  • `code_intelligence.py`         : `ProjectAnalyzer`, `SymbolIndexer`, `ReferenceIndex`,
+                                     `DependencyGraph`, and `ArchitectureDetector`
+  • `code_editing.py`              : Multi-file transactional edits (`ChangeSet`,
+                                     `DiffGenerator`, `PatchBuilder`, `RollbackManager`)
+  • `planning_engine.py`           : Task decomposition, dependency graphs, risk &
+                                     complexity analysis (`Plan`, `TaskDecomposer`)
+  • `execution_and_verification.py`: Autonomous task scheduler, executor, and
+                                     build/test/lint verification loop
+  • `tool_engine.py`               : Universal agent tool registry, permissions,
+                                     terminal/git tools, and execution history
+  • `workspace_tools.py`           : Workspace tools (`FileTool`, `EditorTool`,
+                                     `SearchTool`, `ProjectScanner`, `BrowserTool`)
+
+2. LIBRARIES USED IN `agent/`
+-----------------------------
+  • threading / concurrent.futures : Asynchronous AI streaming, parallel indexing,
+                                     and background task execution.
+  • ast / re / difflib / hashlib   : Python AST symbol indexing, unified diff
+                                     generation, patch validation, and caching.
+  • json / pathlib / os / time     : Project memory persistence (`config/`),
+                                     workspace scanning, and execution metrics.
+  • urllib.request / http.client   : Streaming HTTP/SSE requests to local and
+                                     cloud LLM endpoints.
+
+3. MODULES, CLASSES & FUNCTIONS IN `agent/`
+-------------------------------------------
+
+[1] agent/chat_and_agents.py
+    Role: Combines `AIChatEngine` (manages conversation history, prompt construction,
+          context injection, and streaming token callbacks), `ConnectionManager`,
+          `AIIDEIntegration`, and `BaseAgent` / `CoderAgent` / `DebuggerAgent` /
+          `PlannerAgent`.
+    Classes:
+      • BaseAgent — Abstract base class for all AI agents.
+        Key Methods: __init__, handle_error
+      • CoderAgent — Agent responsible for code generation and modification.
+        Key Methods: __init__, set_engine, implement_task, refactor, explain
+      • DebuggerAgent — Agent responsible for analysing errors and proposing fixes.
+        Key Methods: __init__, set_engine, analyze_error, suggest_fix
+      • PlannerAgent
+        Key Methods: __init__, create_plan
+      • ConnectionStatus — Connection status for a provider.
+        Key Methods: to_dict
+      • ProviderConnection — Stored provider connection information.
+        Key Methods: to_dict, from_dict
+      • AIConnectionManager — Complete AI Connection Management System.
+        Key Methods: __init__, add_connection, remove_connection, update_connection, get_connection, get_all_connections, has_connections, get_active_connections, test_connection, get_connection_stats, clear_all_connections
+      • ChatMessage — A single chat message.
+        Key Methods: to_dict, from_dict
+      • ChatSession — A chat session with a model.
+        Key Methods: add_message, to_dict, from_dict
+      • ChatRequest
+      • AIChatEngine — AI Chat Engine for real AI communication.
+        Key Methods: __init__, set_tool_coordinator, create_session, get_current_session, get_session, get_all_sessions, switch_session, delete_session, rename_session, pin_session, send_message, get_session_usage
+      • AIIDEIntegration — Central integration point between AI and IDE.
+        Key Methods: __init__, initialize_tools, set_chat_engine, get_tool_capabilities, execute_ai_command
+    Functions:
+      • get_connection_manager() — Get the global connection manager instance.
+      • initialize_connection_manager() — Initialize the global connection manager.
+      • get_ai_chat_engine() — Get the global AI chat engine.
+      • initialize_ai_chat_engine(event_bus, provider_registry, provider_manager, model_center, model_registry) — Initialize the global AI chat engine.
+      • reset_ai_chat_engine() — Reset the global AI chat engine.
+      • initialize_ai_ide_integration(event_bus, parent_widget) — Initialize AI-IDE integration.
+
+[2] agent/context_and_memory.py
+    Role: Combines persistent project memory (`ProjectMemory`, `DecisionMemory`,
+          `ProjectContext`) with the context retrieval pipeline (`ContextEngine`,
+          `ContextBuilder`, `ContextRanker`, `ContextSelector`, `ContextCache`,
+          `TokenEstimator`, `FileImportGraph`, `DependencyResolver`).
+    Classes:
+      • ProjectFact — A single piece of remembered knowledge about the project.
+        Key Methods: to_dict, from_dict
+      • ProjectMemory — In-memory + disk-backed store of project knowledge.
+        Key Methods: __init__, set_project, remember, update_from_task, get_by_category, get_all, forget, set_pinned, update_content, build_context_string, clear
+      • Decision — A single recorded AI decision.
+        Key Methods: to_dict, from_dict
+      • DecisionMemory — In-memory + disk-backed store of AI decisions.
+        Key Methods: __init__, record, update_outcome, get_recent, get_for_task, get_failures, summary_for_prompt, clear
+      • ProjectContext — A complete structural snapshot of a user's workspace.
+        Key Methods: framework_name, primary_language, total_size_kb, total_size_mb, summary, to_dict
+      • BudgetReport — Result of a budget check against a specific model limit.
+      • TokenEstimator — Lightweight token estimator using character count heuristics.
+        Key Methods: __init__, estimate, estimate_file, estimate_package, check_budget, suggest_reduction
+      • SymbolEntry — One indexed symbol in the project.
+      • SymbolIndex — Indexes symbols in individual files or entire project trees.
+        Key Methods: index_file, index_project, search
+      • GraphStats — Summary statistics for the import graph.
+      • FileImportGraph — Directed import graph for an entire project.
+        Key Methods: __init__, build, get_imports, get_imported_by, all_files, stats
+      • ResolvedChain — The full dependency chain built from a set of seed files.
+        Key Methods: at_depth
+      • DependencyResolver — Follows import chains from a set of seed files using a BFS strategy.
+        Key Methods: __init__, resolve, reverse_resolve
+      • CacheEntry — One slot in the LRU cache.
+      • CacheStats — Snapshot of cache health metrics.
+      • ContextCache — Thread-safe LRU cache for ContextPackage objects.
+        Key Methods: __init__, make_key, get, put, invalidate_file, clear, stats
+      • CandidateFile — A file that passed the selection filter.
+      • ContextSelector — Selects a subset of project files as candidates for context inclusion.
+        Key Methods: __init__, select
+      • RankedFile — A file that has been scored for context inclusion.
+      • ContextRanker — Multi-factor ranker for context file candidates.
+        Key Methods: __init__, rank
+      • BuilderResult — Raw context materials returned by ContextBuilder.
+      • ContextBuilder — Collects raw context materials for a project.
+        Key Methods: __init__, collect
+      • ContextEntry
+        Key Methods: chars, tokens, summary, to_dict, from_dict
+      • AIContextStore — Disk-backed collection of context entries injected into AI prompts.
+        Key Methods: __init__, add_note, add_file, remove, clear, entries, summaries, is_empty, total_chars, total_tokens, prompt_prefix
+      • SelectedFile — One file selected for inclusion in the context package.
+      • ContextPackage — Optimized context package delivered to the Model Manager.
+      • ContextEngine — Intelligent Context Engine — the gateway between Planner and Model Manager.
+        Key Methods: __init__, build, notify_file_changed, cache_stats
+    Functions:
+      • _iter_files(root, extensions) — Yield all files under *root* with the given extensions, skipping ignored dirs.
+      • estimate_tokens(text)
+
+[3] agent/code_intelligence.py
+    Role: Combines static codebase intelligence (`SymbolIndexer`, `ReferenceIndex`,
+          `DependencyGraph`, `LanguageStatistics`, `EntryPointDetector`,
+          `ArchitectureDetector`, `DocumentationIndexer`, `ImpactAnalyzer`,
+          `ProjectHealth`, `ProjectAnalyzer`).
+    Classes:
+      • SymbolType — Types of symbols that can be indexed.
+      • SymbolEntry — Represents a symbol in the codebase.
+        Key Methods: to_dict, get_full_name
+      • SymbolIndexer — Indexes symbols across a project's source code.
+        Key Methods: __init__, index_project, index_file, get_symbols_by_name, get_symbols_by_type, get_symbols_in_file, find_definition, find_usages, to_dict
+      • Reference — Represents a reference to a symbol.
+        Key Methods: to_dict
+      • ReferenceIndex — Indexes all references to symbols in a project.
+        Key Methods: __init__, build_index, get_references, get_definitions, get_file_references, get_cross_references, find_callers, find_implementations, get_call_graph, get_impact_analysis, get_top_referenced, to_dict
+      • DependencyNode — Represents a file in the dependency graph.
+        Key Methods: to_dict
+      • DependencyEdge — Represents a dependency relationship between two files.
+        Key Methods: to_dict
+      • DependencyGraph — Builds and manages a dependency graph for a project.
+        Key Methods: __init__, build, get_dependencies, get_dependents, get_impact, analyze_file_dependencies, get_impact_report, get_cycle_paths, to_dict
+      • LanguageStats — Statistics for a single language.
+        Key Methods: to_dict
+      • LanguageStatistics — Calculates language statistics for a project.
+        Key Methods: __init__, calculate, get_primary_language, get_language_percentages, get_top_languages, get_total_stats, to_dict
+      • EntryPoint — Represents a detected entry point.
+        Key Methods: to_dict
+      • EntryPointDetector — Detects entry points for different frameworks and technologies.
+        Key Methods: __init__, detect, get_primary_entry_point, get_entry_points_by_type, get_entry_points_by_framework, get_entry_points_by_language, to_dict
+      • ArchitectureResult — Result from architecture detection.
+        Key Methods: __init__, to_dict
+      • ArchitectureDetector — Detects the architectural pattern of a project.
+        Key Methods: __init__, detect
+      • DocumentationEntry — Represents a documentation entry.
+        Key Methods: to_dict
+      • DocumentationIndexer — Indexes documentation across a project.
+        Key Methods: __init__, index, get_readme, get_architecture_docs, get_api_docs, get_docs_by_tag, search_docs, get_coverage_stats, to_dict
+      • ImpactReport — Report of the impact of changing a file.
+        Key Methods: to_dict
+      • ImpactAnalyzer — Analyzes the impact of file changes in a project.
+        Key Methods: __init__, set_dependency_graph, set_symbol_index, analyze, analyze_batch, get_high_impact_files, clear_cache, to_dict
+      • HealthStatus — Health status indicators.
+      • HealthRecommendation — A recommendation for improving project health.
+        Key Methods: to_dict
+      • HealthScore — Health score for a project.
+        Key Methods: to_dict
+      • ProjectHealth — Analyzes project health and generates recommendations.
+        Key Methods: __init__, calculate, get_health_summary, to_dict
+      • ProjectIntelligence — Complete understanding of a project's structure, architecture, and health.
+        Key Methods: __init__, get_summary
+      • ProjectAnalyzer — Orchestrates all sub-analyzers to build complete project intelligence.
+        Key Methods: __init__, analyze, get_intelligence, cancel
+
+[4] agent/code_editing.py
+    Role: Combines safe AI code modification primitives (`ChangeRequest`,
+          `ChangeSet`, `DiffGenerator`, `PatchBuilder`, `PatchValidator`,
+          `FileLockManager`, `EditHistory`, `RollbackManager`, `ChangePreview`,
+          `ChangeApplier`, `ReviewModel`).
+    Classes:
+      • ChangePriority — Priority levels for code change requests.
+      • ChangeStatus — Status of a change request in the pipeline.
+      • ChangeRequest — Represents a request from an AI model to modify files.
+        Key Methods: create, with_status, with_metadata, with_rollback_id
+      • OperationType — Types of file operations in a change set.
+      • Hunk — A single change hunk for a modified file.
+      • ChangeOperation — One atomic operation in the change set.
+        Key Methods: create_file, delete_file, rename_file, move_file, modify_file
+      • ChangeSet — Collection of all proposed file modifications.
+        Key Methods: from_operations, is_empty, get_operations_by_type, get_changes_by_file
+      • DiffResult — Complete diff output for a single file.
+      • DiffSummary — Summary of all changes across the change set.
+      • DiffGenerator — Generates professional diffs from ChangeRequest objects.
+        Key Methods: __init__, generate, generate_summary
+      • Patch — A single patch for applying changes to a file.
+      • PatchSet — Collection of patches for all operations in a change set.
+      • PatchBuilder — Builds safe, incremental patches from a ChangeSet.
+        Key Methods: __init__, build, generate_smart_hunks
+      • ValidationResult — Result of validating a patch or change set.
+      • PatchValidator — Validates patches for safety and correctness.
+        Key Methods: __init__, validate_change_set
+      • LockStatus — Status of a file lock.
+      • FileLock — A lock on a file.
+      • LockRequest — A request to lock a file.
+      • FileLockManager — Manages file locks to prevent concurrent edits.
+        Key Methods: __init__, acquire, release, release_all, is_locked, get_lock, queue_status, cleanup_expired
+      • EditEntry — One edit entry in the history.
+        Key Methods: to_dict, from_dict
+      • EditHistory — Manages edit history with support for:
+        Key Methods: __init__, add_entry, get_all, get_by_request_id, get_by_file, get_by_model, get_by_time_range, undo, search, stats
+      • Checkpoint — A rollback checkpoint.
+      • RollbackResult — Result of a rollback operation.
+      • RollbackManager — Manages automatic backups and rollback capabilities.
+        Key Methods: __init__, create_checkpoint, rollback, undo, recover, list_checkpoints, get_checkpoint, clear_all, stats
+      • PreviewResult — Result from the preview window.
+      • ChangePreview — Preview window showing proposed code changes.
+        Key Methods: __init__, exec
+      • ApplyResult — Result of applying a change set.
+      • ChangeApplier — Applies approved patches to files safely.
+        Key Methods: __init__, apply, confirm_pending
+      • ReviewModel — Tracks accept/reject state over a ChangeSet's operations and hunks.
+        Key Methods: __init__, operations, operation, count, is_op_selected, set_op_selected, is_hunk_selected, set_hunk_selected, original_content, proposed_content, effective_content, selected_change_set
+    Functions:
+      • dataclasses_replace(instance) — Replacement for dataclasses.replace that works across Python versions.
+      • make_request_id() — Generate a unique request ID with timestamp.
+      • build_patch_for_operation(op, project_root, smart) — Convenience function to build a single patch.
+      • apply_hunk_to_content(content, hunk) — Apply a single hunk to content and return result.
+      • validate_change_set(change_set, project_root) — Convenience function to validate a change set.
+      • load_edit_history(project_root, max_entries) — Convenience function to load edit history.
+      • create_edit_entry(request_id, user_prompt, model_name, files, rollback_id, changes_summary) — Convenience function to create an edit entry.
+      • create_checkpoint(project_root, change_set, request_id, user_prompt) — Convenience function to create a checkpoint.
+      • rollback(project_root, checkpoint_id) — Convenience function to rollback to a checkpoint.
+
+[5] agent/planning_engine.py
+    Role: Combines `Task`, `EngineeringTask`, `TaskAnalyzer`, `PlanStep`, `Plan`,
+          `DependencyGraph`, `ComplexityAnalyzer`, `RiskAnalyzer`, `PlanValidator`,
+          `TaskDecomposer`, `RoadmapBuilder`, `TaskState`, and `ExecutionTask`.
+    Classes:
+      • TaskStatus — Lifecycle states a Task can occupy.
+      • TaskPriority — Execution priority levels.
+      • TaskComplexity — Estimated complexity levels assigned by TaskAnalyzer.
+      • Task — The universal unit of work in OwnCode.
+        Key Methods: requires_code_changes, mark_completed, mark_failed, is_terminal
+      • EngineeringTaskStatus
+      • EngineeringTask — An autonomous engineering task representing a single step in a plan.
+        Key Methods: add_log
+      • TaskAnalyzer — Rule-based prompt analyzer.
+        Key Methods: __init__, analyze, classify_task_type
+      • PlanStep — A single step in the execution plan.
+      • Plan — Complete execution plan containing all steps, risks, and metadata.
+      • DependencyGraph — Manages relationships between execution steps and project files.
+        Key Methods: __init__, build_step_graph, analyze_file_dependencies, has_cycles
+      • ComplexityAnalyzer — Assigns an estimated complexity rating to a task.
+        Key Methods: estimate_complexity
+      • RiskAnalyzer — Identifies potential risks like circular imports, breaking changes, etc.
+        Key Methods: analyze_risks
+      • PlanValidator — Runs safety and structural checks on the proposed Plan.
+        Key Methods: validate
+      • TaskDecomposer — Breaks down a high-level Task into actionable EngineeringTasks.
+        Key Methods: decompose
+      • RoadmapBuilder — Generates execution phases from a list of steps.
+        Key Methods: build_roadmap
+      • TaskState — Lifecycle states for ExecutionTask.
+      • StateTransition — Records a single state transition with timing.
+      • TaskStateHistory — Complete history of state transitions for a task.
+        Key Methods: current_state, is_terminal, get_transitions, get_transitions_by_state, get_time_in_state, add_transition
+      • ExecutionMode — Execution mode for a task.
+      • RetryStrategy — Strategy for handling task retries.
+      • ExecutionConfig — Execution configuration for a task.
+      • ExecutionResult — Result of a single execution attempt.
+      • ExecutionStats — Execution statistics for a task.
+      • ExecutionTask — Extended task with execution engine metadata.
+        Key Methods: id, state, is_terminal, success, status, to_dict
+    Functions:
+      • can_transition(from_state, to_state) — Check if a state transition is valid.
+      • validate_transition(from_state, to_state) — Validate a state transition, raising ValueError if invalid.
+      • create_execution_task(prompt, config) — Factory function to create a new ExecutionTask.
+
+[6] agent/execution_and_verification.py
+    Role: Combines the task execution engine (`ExecutionEngine`, `TaskExecutor`,
+          `TaskScheduler`, `ExecutionQueue`, `ExecutionMonitor`) with automated
+          verification (`VerificationEngine`, `BuildRunner`, `TestRunner`,
+          `LinterRunner`, `FormatterRunner`, `ErrorClassifier`, `RetryManager`)
+          and `EngineeringWorkflowCoordinator`.
+    Classes:
+      • ExecutionEvents — Event names for ExecutionEngine events.
+        Key Methods: get_all_events, get_event_description
+      • MetricSnapshot — Snapshot of all metrics at a point in time.
+      • ExecutionMetrics — Performance metrics tracking for execution engine.
+        Key Methods: __init__, record_task_success, record_task_failure, record_task_cancelled, record_verification_time, record_context_build_time, record_model_execution_time, record_apply_time, get_metrics, get_history, clear_history, reset
+      • ExecutionReport — Generated execution report.
+      • ExecutionReportGenerator — Generates human-readable execution reports.
+        Key Methods: __init__, generate, format_text, format_markdown
+      • QueuePriority — Priority levels for task queuing.
+      • ExecutionQueue — Thread-safe priority queue for ExecutionTasks.
+        Key Methods: __init__, enqueue, dequeue, peek, remove, contains, get_task, list_tasks, count, clear, get_by_group, get_pending_for_group
+      • MonitorStatus — Current monitoring status.
+      • ExecutionMonitor — Real-time execution monitor.
+        Key Methods: __init__, start, stop, is_running, get_status, get_status_for_task, on_status_change, get_history, clear_history
+      • DependencyStatus — Status of a task's dependencies.
+      • ScheduleResult — Result of scheduling operation.
+      • TaskScheduler — Task scheduler with dependency and group support.
+        Key Methods: __init__, add_task, remove_task, get_ready_tasks, get_group_ready_tasks, get_dependents, mark_completed, mark_failed, detect_cycles
+      • RetryStrategy — Retry strategy for failed tasks.
+      • ExecutorConfig — Configuration for TaskExecutor.
+      • TaskExecutor — Thread pool executor for ExecutionTasks.
+        Key Methods: __init__, start, shutdown, submit, cancel, get_active_tasks, get_active_count, get_stats, set_chat_engine
+      • VerifierType — Types of verifiers that can be run.
+      • VerifierStatus — Status of a verifier execution.
+      • VerifierConfig — Configuration for a single verifier.
+      • VerifierResult — Result of a single verifier execution.
+      • VerificationTask — A complete verification task.
+        Key Methods: create, add_result, is_complete, get_overall_status, get_failed_verifiers, get_passed_verifiers, needs_retry
+      • ReportSection — A section of the verification report.
+      • VerificationReportGenerator — Generates human-readable verification reports.
+        Key Methods: __init__, generate
+      • ErrorType — Types of verification errors.
+      • Severity — Severity levels for errors.
+      • ErrorClassification — Classification of a single error.
+      • ErrorClassifier — Classifies errors from verification runs.
+        Key Methods: __init__, classify, classify_batch, get_severity_color
+      • ValidationResult — Result of success validation.
+      • SuccessValidator — Validates that all verification checks have passed.
+        Key Methods: __init__, validate, validate_with_optional, can_proceed, get_failure_reason
+      • RetryConfig — Configuration for retry behavior.
+      • RetryManager — Manages retry logic for verification tasks.
+        Key Methods: __init__, should_retry, calculate_delay, record_retry, get_retry_history, reset_history, get_stats, create_retry_task, should_escalate, get_escalation_message
+      • BuildSystem — Detected build system information.
+      • BuildRunner — Runs automated builds for different project types.
+        Key Methods: __init__, run
+      • TestFramework — Detected test framework information.
+      • TestRunner — Runs automated tests for different frameworks.
+        Key Methods: __init__, run
+      • LinterConfig — Configuration for a linter.
+      • LinterRunner — Runs linters on modified files.
+        Key Methods: __init__, run, is_linter_available, get_available_linters
+      • FormatterConfig — Configuration for a formatter.
+      • FormatterRunner — Runs code formatters on modified files.
+        Key Methods: __init__, run, is_formatter_available, get_available_formatters
+      • VerificationResult — Final result of the verification engine.
+      • VerificationEngine — Main coordinator for AI code verification.
+        Key Methods: __init__, verify, verify_edit, retry_failed, get_status
+      • ExecutionEngineConfig — Configuration for ExecutionEngine.
+      • ExecutionEngine — Central orchestrator for AI execution in OwnCode.
+        Key Methods: __init__, submit_task, submit_with_plan, submit_engineering_tasks, start_monitoring, stop_monitoring, cancel_task, pause_task, resume_task, get_task, get_all_tasks, get_pending_tasks
+      • EngineeringWorkflowCoordinator — Orchestrates the entire AI engineering pipeline:
+        Key Methods: __init__
+    Functions:
+      • setup_logger(name) — Simple logger setup for this module.
+      • setup_logger(name) — Simple logger setup for this module.
+      • setup_logger(name) — Simple logger setup for this module.
+      • setup_logger(name) — Simple logger setup for this module.
+      • setup_logger(name) — Simple logger setup for this module.
+      • setup_logger(name) — Simple logger setup for this module.
+      • setup_logger(name) — Simple logger setup for this module.
+      • create_default_task_config() — Create default verifier configurations.
+      • generate_report(task, execution_time_ms) — Convenience function to generate report.
+      • classify_error(error_message, file_path) — Convenience function to classify an error.
+      • classify_batch(output, file_path) — Convenience function to classify multiple errors.
+      • validate_success(task) — Convenience function to validate task success.
+      • can_proceed(task) — Convenience function to check if task can proceed.
+      • should_retry_task(task, max_retries) — Convenience function to check if task should be retried.
+      • create_default_config() — Create default verifier configurations.
+      • create_execution_engine(event_bus, config_dir, project_root, max_concurrent, max_retries) — Factory function to create and configure an ExecutionEngine.
+
+[7] agent/tool_engine.py
+    Role: Combines `ToolManager`, `ToolRegistry`, `ToolScheduler`, `ToolHistory`,
+          `ToolPermission`, `TerminalTool`, and `GitTool`.
+    Classes:
+      • ToolPermission — Permission levels for tools.
+      • ToolCategory — Tool categories.
+      • ToolResult — Standardized result for tool execution.
+        Key Methods: to_dict, success_result, error_result
+      • ToolContext — Context passed to every tool.
+        Key Methods: to_dict
+      • BaseTool — Abstract base class for all tools.
+        Key Methods: __init__, is_running, is_cancelled, requires_confirmation, set_context, get_context, execute_async, execute, execute_async, cancel, validate, is_model_supported
+      • PermissionLevel — Permission levels for tools.
+      • PermissionPolicy — Defines the policy for tool permissions.
+        Key Methods: __init__, get_permission, set_policy, requires_confirmation, is_dangerous, get_dangerous_tools, get_policy_summary, set_autonomous_enabled, is_autonomous_enabled, pre_approve, revoke_approval, can_auto_execute
+      • ExecutionRecord — Record of a tool execution.
+      • ToolHistory — Stores and analyzes tool execution history.
+        Key Methods: __init__, record_result, record_execution, get_history, get_recent, get_errors, get_by_rollback_id, get_stats, get_overall_stats, get_top_tools, get_history_size, clear_history
+      • ToolRegistry — Central registry for all tools.
+        Key Methods: __init__, register_tool, unregister_tool, register_class, discover_tools, discover_plugin_tools, get_tool, get_all_tools, get_tools_by_category, get_tools_by_permission, has_tool, list_tools
+      • TaskStatus — Status of a scheduled task.
+      • ScheduledTask — A scheduled tool execution task.
+      • ToolScheduler — Manages tool execution scheduling and coordination.
+        Key Methods: __init__, schedule, execute_now, schedule_batch, cancel, cancel_all, get_task, get_pending, get_running, get_completed, get_failed, get_stats
+      • TerminalTool
+        Key Methods: __init__, execute_async, run_command, stop_command
+      • GitTool
+        Key Methods: __init__, execute_async, get_status, commit
+      • ExecuteToolConfig — Configuration for tool execution.
+      • ToolManager — Central manager for tool execution.
+        Key Methods: __init__, register_tool, unregister_tool, register_default_tools, execute_tool, execute_tool_async, execute_tool_config, execute_tool_with_context, schedule_tool, cancel_task, get_pending_tasks, get_running_tasks
+    Functions:
+      • get_permission_policy() — Get the global permission policy.
+      • reset_permission_policy() — Reset the global permission policy.
+      • get_tool_history() — Get the global tool history.
+      • reset_tool_history() — Reset the global tool history.
+
+[8] agent/workspace_tools.py
+    Role: Combines `ToolCoordinator`, `FileTool`, `EditorTool`, `SearchTool`,
+          `ExecutionTool`, `ProjectTool`, `ProjectScanner`, `TreeBuilder`,
+          `LanguageDetector`, `FrameworkDetector`, `DependencyAnalyzer`, and
+          `BrowserTool`.
+    Classes:
+      • ToolResult — Standardized result from tool execution.
+      • BaseTool — Base class for all AI tools.
+        Key Methods: __init__, name, description, schema, execute, validate_params, requires_confirmation, publish_event
+      • ToolContext — Context passed to every tool for context-aware execution.
+        Key Methods: to_dict, from_dict, merge
+      • FileTool — Complete file system operations for AI agents.
+        Key Methods: name, description, schema, execute
+      • EditorTool — Editor control operations for AI agents.
+        Key Methods: name, description, schema, execute
+      • SearchTool — Search and query operations for AI agents.
+        Key Methods: name, description, schema, execute
+      • ExecutionTool — Execute code and commands for AI agents.
+        Key Methods: __init__, name, description, schema, execute
+      • TreeBuildError — Raised when the tree cannot be built from the given root path.
+      • TreeNode — Represents a single file or directory in the project tree.
+        Key Methods: walk, files, directories, find_by_name, depth, relative_path
+      • TreeBuilder — Builds a TreeNode tree from a workspace root directory.
+        Key Methods: __init__, build, find, total_files, total_dirs, total_size_bytes, render_ascii
+      • LanguageStats — Statistics for a single programming language.
+      • LanguageBreakdown — Full language composition of a project.
+        Key Methods: get, code_languages
+      • LanguageDetector — Determines the programming language composition of a project.
+        Key Methods: __init__, detect, detect_from_path
+      • FrameworkDetectionError — Raised when framework detection cannot run due to an I/O or parse error.
+      • Framework — All frameworks the detector can identify.
+      • FrameworkResult — The outcome of a single framework detection pass.
+      • _DetectionRule
+      • FrameworkDetector — Detects the dominant framework of a software project.
+        Key Methods: __init__, detect
+      • DependencyAnalysisError — Raised when a dependency file is malformed or cannot be parsed.
+      • Dependency — A single library or package dependency.
+      • DependencyInfo — Complete dependency picture for a project.
+        Key Methods: all_dependencies, dependency_names
+      • DependencyAnalyzer — Reads and parses project dependency manifests into DependencyInfo objects.
+        Key Methods: __init__, analyze
+      • ProjectScanError — Raised when the project scan fails critically and cannot complete.
+      • ProjectScanner — Orchestrates all workspace analysis tools and produces a ProjectContext.
+        Key Methods: __init__, scan
+      • ProjectTool — Project management operations for AI agents.
+        Key Methods: name, description, schema, execute
+      • BrowserTool
+        Key Methods: __init__, search
+      • AIToolCoordinator — Central coordinator for all AI tools.
+        Key Methods: __init__, register_tool, unregister_tool, get_available_tools, execute_tool, execute_from_llm, get_tool_info, get_tool_names, set_workspace_root
+    Functions:
+      • initialize_tool_coordinator(event_bus, workspace_root) — Initialize and return the global AI tool coordinator.
+================================================================================

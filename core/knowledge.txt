@@ -1,0 +1,177 @@
+================================================================================
+OWNCODE KNOWLEDGE GUIDE — core/ (Core IDE Runtime, Lifecycle & LSP Engine)
+================================================================================
+
+1. PURPOSE OF THIS FOLDER
+-------------------------
+The `core/` folder is the central nervous system of OwnCode IDE. It handles:
+  • Application startup validation, profiling, and background initialization
+  • The global publish/subscribe EventBus that connects the UI, Tools, and Agent
+  • Workspace folder loading, file watching, and safe atomic file operations
+  • Editor buffer/tab state management and external file modification detection
+  • Language Server Protocol (LSP) client management and in-process Python Jedi
+    code intelligence (autocomplete, hover, definitions, and diagnostics)
+  • Transparent module alias resolution (`core/__init__.py`) so consolidated
+    modules and legacy module paths resolve seamlessly.
+
+2. LIBRARIES USED IN `core/`
+----------------------------
+  • PySide6 (QtCore, QtWidgets) : Qt signals, QObject, QThread, QTimer, and
+                                  QFileSystemWatcher (with pure-Python headless
+                                  fallbacks when running CLI tests).
+  • importlib / sys / types     : MetaPathFinder & Loader for virtual module
+                                  aliasing across consolidated files.
+  • logging / logging.handlers  : Rotating file and console loggers.
+  • threading / queue           : Thread-safe event dispatch and background tasks.
+  • pathlib / os / shutil       : Cross-platform filesystem and atomic file writes.
+  • json / tempfile / time      : Session persistence, config validation, profiling.
+  • jedi (optional)             : In-process Python static analysis & completions.
+
+3. MODULES, CLASSES & FUNCTIONS IN `core/`
+------------------------------------------
+
+[1] core/__init__.py
+    Role: Initializes the `core` package and installs `_ConsolidatedFinder` on
+          `sys.meta_path` so all consolidated modules across `core/`, `agent/`,
+          `ui/`, and `tools/` can be imported by either their new canonical name
+          or their original submodule path.
+    Classes:
+      • _VirtualPackage
+        Key Methods: __init__
+      • _ConsolidatedLoader
+        Key Methods: __init__, create_module, exec_module
+      • _ConsolidatedFinder
+        Key Methods: find_spec
+    Functions:
+      • install_import_aliases()
+
+[2] core/event_and_compat.py
+    Role: Combines the Qt compatibility layer (`qt_compat`), central logging
+          (`logger`), custom IDE exception hierarchy (`exceptions`), and the
+          publish/subscribe `EventBus` (`event_bus`).
+    Classes:
+      • OwnCodeError — Base exception for all application errors.
+      • ModelTimeoutError — Raised when an AI model takes too long to respond.
+      • ToolExecutionError — Raised when a tool (e.g., terminal, file) fails to execute.
+      • ConfigurationError — Raised when configuration is invalid or missing.
+      • ProviderError — Raised when a provider operation fails.
+      • EventBus — Manages pub/sub event distribution across the app.
+        Key Methods: __init__, subscribe, unsubscribe, publish
+    Functions:
+      • namer(name) — Custom namer for rotated log files.
+      • rotator(source, dest) — Custom rotator that compresses rotated logs with gzip.
+      • setup_logger(name, log_level, log_dir, max_bytes, backup_count) — Creates and configures a standard logger for a module.
+      • get_logger(name) — Get an existing logger or create a new one with default settings.
+      • set_global_log_level(level) — Set the log level for all existing loggers.
+      • clean_old_logs(log_dir, keep_days) — Clean up log files older than the specified number of days.
+
+[3] core/system_managers.py
+    Role: Combines all IDE system-level singleton managers:
+          `ErrorManager` (crash/exception recovery), `SafeFileOps` (atomic file
+          writes & backups), `StartupProfiler` (boot timing), `StartupValidator`
+          (directory/config verification), `ConfigValidator` (JSON schema repair),
+          `ResourceManager` (memory/timer/handle cleanup), `SessionManager`
+          (saving/restoring open tabs & layout), `PerformanceWatchdog` (UI stall
+          monitoring), and `BackgroundInitializer` (off-thread heavy AI boot).
+    Classes:
+      • ErrorSeverity
+      • ErrorRecord
+      • ErrorManager — Central error manager singleton.
+        Key Methods: __init__, set_event_bus, handle_exception, report_error, get_errors, clear_errors, clear_history, get_error_history, save_history, safe_execute
+      • TimingEntry — Records timing for a single initialization step.
+        Key Methods: exceeds_threshold
+      • StartupProfiler — Profiles application startup performance.
+        Key Methods: __init__, start, end, get_total_time, get_entry, get_all_entries, get_bottlenecks, get_top_level_phases, generate_report, print_report, save_report, print_summary_table
+      • ProfilePhase — Context manager for timing a phase.
+        Key Methods: __init__
+      • ValidationStatus
+      • ValidationResult
+      • StartupReport
+      • StartupValidator — Validates application environment on startup.
+        Key Methods: __init__, validate
+      • SchemaRule
+      • ConfigValidator — Validates and repairs JSON configuration files.
+        Key Methods: __init__, validate_and_load, save
+      • ResourceType
+      • ResourceRecord
+      • ResourceManager — Tracks and manages all application resources.
+        Key Methods: __init__, set_event_bus, register_resource, unregister_resource, get_resources, get_memory_usage, get_thread_count, get_open_files, collect_garbage, cleanup_all, get_resource_count, get_active_resources
+      • SessionManager — Manages editor session state persistence.
+        Key Methods: __init__, save_session, load_session, clear_session, get_recent_workspaces, add_recent_workspace, create_session_snapshot
+      • PerformanceSnapshot
+      • CurrentMetrics
+      • PerformanceWatchdog — Monitors application performance and reports issues.
+        Key Methods: __init__, set_event_bus, start, stop, get_latest_snapshot, get_current_metrics, get_statistics
+      • InitState — Initialization state for a component.
+      • InitTask — Represents a background initialization task.
+      • BackgroundInitWorker — Worker thread for background initialization.
+        Key Methods: __init__, run, stop
+      • BackgroundInitializer — Manages background initialization of heavy systems.
+        Key Methods: __init__, add_task, start, stop, is_running, get_status
+    Functions:
+      • get_error_manager() — Get the global ErrorManager singleton.
+      • safe_write_text(path, content, encoding, create_backup, verify) — Safely write text to a file using atomic replace.
+      • safe_read_text(path, encoding, fallback_encodings) — Safely read text from a file with validation and encoding fallback.
+      • validate_file(path, max_size) — Validate a file before reading/writing.
+      • safe_file_lock(path, timeout) — Context manager for safe file locking (simple advisory lock).
+      • _safe_print() — Print safely even when stdout uses cp1252 or is detached on Windows.
+      • get_startup_profiler() — Get or create the global startup profiler instance.
+      • reset_profiler() — Reset the global profiler (useful for testing).
+      • run_startup_validation() — Run the complete startup validation.
+      • get_config_validator() — Get the global ConfigValidator singleton.
+      • get_resource_manager() — Get the global ResourceManager singleton.
+      • get_performance_watchdog() — Get the global PerformanceWatchdog singleton.
+
+[4] core/workspace_and_editor.py
+    Role: Combines `WorkspaceManager` (fast workspace root switching and background
+          project metadata scanning) and `EditorManager` (Note: `Explorer`,
+          `FileOperations`, `FileWatcher`, and `DeleteGuard` live in
+          `tools/explorer_and_files.py`)
+          (open buffer tracking, encoding detection, and save orchestration).
+    Classes:
+      • _MetadataScanWorker — Runs ProjectScanner.scan() in a background QThread to build metadata only.
+        Key Methods: __init__, run
+      • Workspace — Represents a single open workspace/project.
+        Key Methods: __init__
+      • WorkspaceManager — Manages workspaces and projects using QFileSystemModel first for instant UI!
+        Key Methods: __init__, save_session, load_session, pin_project, unpin_project, open_workspace, close_workspace, refresh_workspace
+      • DeleteGuard
+        Key Methods: __init__
+      • FileOperations — Safe file and folder operations with user confirmation.
+        Key Methods: __init__, create_file, create_folder, rename, delete, move, copy, duplicate, reveal_in_explorer
+      • FileWatcher — Watches files and directories for changes.
+        Key Methods: __init__, watch_directory, watch_file, unwatch_file, unwatch_directory, clear_all
+      • EditorManager — Central file I/O manager for the editor.
+        Key Methods: __init__, load_session, save_session, open_file
+    Functions:
+      • _looks_like_windows_path(path_str) — True if the string is a Windows absolute path (invalid on POSIX).
+
+[5] core/lsp_engine.py
+    Role: Combines `LanguageServerConfig` (command definitions for pylsp, clangd,
+          tsserver, rust-analyzer, gopls), `JediProvider` (zero-config in-process
+          Python intelligence), `LSPClient` (JSON-RPC 2.0 over hidden stdio pipes),
+          and `LSPManager` (lifecycle routing between editor buffers and servers).
+    Classes:
+      • LanguageServerConfig — Configuration for a language server.
+      • Completion — One completion candidate.
+      • Location — A source location for definitions / references.
+      • Signature — One call signature for signature help.
+      • Hover — Hover information at a position.
+      • JediProvider — Answer language-intelligence requests for Python source via jedi.
+        Key Methods: __init__, available, complete, hover, signatures, definition, references, rename
+      • LSPClient — Client for communicating with a language server via JSON-RPC.
+        Key Methods: __init__, start, stop, send_request, send_notification
+      • LSPManager — Manages multiple language server clients for different languages.
+        Key Methods: __init__, set_workspace, python_intelligence, supports_inprocess, get_client_for_language, get_client_for_file, open_document, change_document, close_document, save_document, request_completion, request_hover
+    Functions:
+      • get_standard_language_servers() — Get standard language server configurations.
+
+4. HOW `core/` CONNECTS TO THE REST OF OWNCODE
+----------------------------------------------
+  • `main.py` creates `EventBus()` from `core/event_and_compat.py` and passes it
+    to `MainWindow` (`ui/`), `WorkspaceManager` (`core/`), `RunManager` (`tools/`),
+    and `AIChatEngine` (`agent/`).
+  • All cross-layer communication happens through `event_bus.publish(event, data)`
+    and `event_bus.subscribe(event, callback)`, keeping `ui/`, `tools/`, and
+    `agent/` decoupled.
+================================================================================

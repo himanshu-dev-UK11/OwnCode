@@ -1,0 +1,118 @@
+================================================================================
+OWNCODE KNOWLEDGE GUIDE — agent/providers/ (Local LLM & Cloud AI Providers)
+================================================================================
+
+1. PURPOSE OF THIS FOLDER
+-------------------------
+The `agent/providers/` subfolder manages all connections to Local LLMs and
+Cloud AI APIs:
+  • Local GGUF & Ollama Execution (`local_providers.py`):
+    - `LlamaCppLoader` & `LlamaCppProvider`: Discovers local `.gguf` models,
+      automatically spawns `llama-server` silently (`CREATE_NO_WINDOW`), selects
+      an open loopback port, and streams OpenAI-compatible chat completions.
+    - `OllamaProvider`: Performs fast 200ms TCP socket port checks on `127.0.0.1:11434`,
+      lists installed Ollama models, and streams responses without flashing windows.
+    - `QwenProvider`: Connects to local Qwen/Ollama or OpenAI-compatible servers.
+  • Provider Core Infrastructure (`provider_core.py`):
+    - `BaseProvider`, `ProviderConfig`, `ProviderRegistry`, `ProviderFactory`,
+      `ProviderDiscovery` (fast `<50ms` local port probe), `ProviderHealth`,
+      `ProviderRouter`, `ProviderManager`, and encrypted `SecretStore`.
+  • Cloud Provider Adapters (`cloud_providers.py`):
+    - `OpenAIProvider`, `AnthropicProvider`, `GeminiProvider`, `GroqProvider`,
+      `CerebrasProvider`, `DeepInfraProvider`, `FireworksProvider`,
+      `TogetherProvider`, and `CustomProvider`.
+
+2. LIBRARIES USED IN `agent/providers/`
+---------------------------------------
+  • urllib.request / urllib.error / http.client : Zero-dependency HTTP/SSE
+                                                  streaming to LLM servers.
+  • socket / subprocess / shutil                : Fast local port probes (`150ms`)
+                                                  and hidden `llama-server` /
+                                                  `ollama serve` management.
+  • json / base64 / hashlib / os                : Provider config serialization
+                                                  and encrypted API key storage.
+
+3. MODULES, CLASSES & FUNCTIONS IN `agent/providers/`
+-----------------------------------------------------
+
+[1] agent/providers/provider_core.py
+    Role: Defines the provider interface, encrypted secret store, fast port
+          discovery, health monitor, factory, registry (with built-in configs for
+          all 12 providers), router, and manager.
+    Classes:
+      • AuthenticationType — Supported authentication methods.
+      • ProviderStatus — Provider connection status.
+      • ProviderConfig — Configuration for a provider instance.
+        Key Methods: to_dict, from_dict
+      • ProviderEvent — Event fired by provider state changes.
+        Key Methods: __init__
+      • BaseProvider — Abstract base class for all AI providers.
+        Key Methods: __init__, connect, disconnect, generate_response, stream_response, refresh_models, get_models, get_model, get_status, is_connected, is_available, test_connection
+      • SecretStore — Backend-agnostic secret storage for provider API keys.
+        Key Methods: __init__, secure, get_secret, set_secret, delete_secret, has_secret
+      • StoredToken — Stored API token with metadata.
+        Key Methods: to_dict, from_dict
+      • APITokenManager — Manages API tokens for AI providers with secure storage.
+        Key Methods: __init__, load_tokens, save_tokens, store_token, get_token, verify_token, remove_token, get_all_providers, is_provider_connected, update_last_used, get_connected_providers, clear_all_tokens
+      • ProviderDiscovery — Discovers available AI providers on the local system and network.
+        Key Methods: __init__, discover_all, discover_ollama, discover_lm_studio, discover_llama_cpp, discover_vllm, get_discovered_providers, is_provider_detected, get_detection_details, clear_cache
+      • ProviderHealthMetrics — Health metrics for a single provider, including health score (Part 16).
+        Key Methods: record_request, get_availability_score, calculate_health_score, get_health_info
+      • ProviderHealth — Monitors health of all providers.
+        Key Methods: __init__, get_metrics, get_all_health, record_status, record_request, record_attempt, get_last_attempt, get_unavailable_providers, get_recommended_provider, clear
+      • ProviderFactory — Factory for creating provider instances.
+        Key Methods: register_provider, create_from_config, create_from_dict, create_from_config_obj, get_available_providers
+      • ProviderRegistry — Manages registration, lifecycle, and querying of AI providers.
+        Key Methods: __init__, register_provider, unregister_provider, load_all_providers, load_provider, reload_provider, get_provider, get_enabled_providers, get_connected_providers, get_available_providers, get_all_providers, enable_provider
+      • ProviderRouter — Routes AI requests to the best available provider.
+        Key Methods: __init__, route_request, route_stream, select_provider, get_providers_supporting, get_capabilities_for_provider
+      • ProviderEventTypes — Event types for Part22
+      • ProviderManager — Manages all provider operations for the application.
+        Key Methods: __init__, initialize_all_providers_parallel, enable_provider, disable_provider, validate_api_key, test_connection, refresh_models, register_models, get_health_status, monitor_health, shutdown
+    Functions:
+      • get_secret_store(storage_dir) — Return the process-wide SecretStore singleton.
+      • _is_local_port_open(url_or_host, default_port, timeout) — Fast TCP probe to 127.0.0.1 so closed local ports fail in <150ms instead of 4-5s.
+      • register_standard_providers() — Register all standard providers.
+
+[2] agent/providers/local_providers.py
+    Role: Implements `LlamaCppLoader`, `LlamaCppProvider`, `OllamaProvider`,
+          and `QwenProvider` for 100% local, offline-capable AI coding assistance.
+    Classes:
+      • _NoRedirect
+        Key Methods: redirect_request
+      • LlamaCppLoaderError — Raised when a local llama-server cannot be prepared safely.
+      • LlamaCppLoader — Find GGUF files and manage at most one IDE-owned llama-server process.
+        Key Methods: __init__, update_options, endpoint, active_model_id, api_model_id, owns_process, discover_models, model_path, resolve_executable, ensure_server, stop
+      • LlamaCppCancelledError
+      • LlamaCppProvider — Serve GGUF files through llama-server's local OpenAI-compatible API.
+        Key Methods: __init__, connect, disconnect, ensure_server, activate_model, warm_model, cancel_generation, refresh_models, generate_response, stream_response
+      • OllamaProvider — Provider implementation for Ollama local LLM server.
+        Key Methods: __init__, is_server_up, ensure_server, connect, disconnect, list_running_models, unload_models, is_model_loaded, warm_model, generate_response, stream_response, refresh_models
+      • QwenProvider — Provider implementation for Qwen3 8B local coding agent.
+        Key Methods: __init__, is_server_up, connect, disconnect, generate_response, stream_response, refresh_models, generate_code, explain_code, debug_code, refactor_code
+    Functions:
+      • _split_options(kwargs) — Return a payload fragment with runtime knobs nested under "options".
+
+[3] agent/providers/cloud_providers.py
+    Role: Implements cloud LLM adapters (`OpenAI`, `Anthropic`, `Gemini`, `Groq`,
+          `Cerebras`, `DeepInfra`, `Fireworks`, `Together`, `Custom`).
+    Classes:
+      • OpenAIProvider — Provider implementation for OpenAI API.
+        Key Methods: __init__, connect, disconnect, generate_response, stream_response, refresh_models
+      • AnthropicProvider — Provider implementation for Anthropic API (Claude).
+        Key Methods: __init__, connect, disconnect, generate_response, stream_response, refresh_models
+      • GeminiProvider — Provider implementation for Google Gemini API.
+        Key Methods: __init__, connect, disconnect, generate_response, stream_response, refresh_models
+      • GroqProvider — Provider implementation for Groq API.
+        Key Methods: __init__, connect, disconnect, generate_response, stream_response, refresh_models
+      • CerebrasProvider — Provider implementation for Cerebras API.
+        Key Methods: __init__, connect, disconnect, generate_response, stream_response, refresh_models
+      • DeepInfraProvider — Provider implementation for DeepInfra API.
+        Key Methods: __init__, connect, disconnect, generate_response, stream_response, refresh_models
+      • FireworksProvider — Provider implementation for Fireworks AI API.
+        Key Methods: __init__, connect, disconnect, generate_response, stream_response, refresh_models
+      • TogetherProvider — Provider implementation for Together AI API.
+        Key Methods: __init__, connect, disconnect, generate_response, stream_response, refresh_models
+      • CustomProvider — Generic provider for any OpenAI-compatible API endpoint.
+        Key Methods: __init__, connect, disconnect, generate_response, stream_response, refresh_models
+================================================================================

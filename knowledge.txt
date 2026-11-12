@@ -1,0 +1,80 @@
+================================================================================
+OWNCODE IDE v2.0 — MASTER PROJECT KNOWLEDGE & ARCHITECTURE MAP
+================================================================================
+
+Welcome to the reorganized OwnCode v2.0 codebase. All 370+ original fragmented
+Python files and 280+ legacy history files have been consolidated into 6 clean
+top-level folders with ~35 cohesive Python modules. Every folder contains its
+own detailed `knowledge.txt` file.
+
+1. TOP-LEVEL DIRECTORY MAP
+--------------------------
+  ├── OwnCode.exe                  # Native Windows 64-bit GUI desktop launcher with embedded 'OC' icon
+  ├── main.py                      # Application entry point (Fast Startup pipeline)
+  ├── core/                        # Core IDE runtime, EventBus, Workspace, Editor & LSP
+  │   ├── __init__.py              # Virtual module alias resolver (backwards-compatible)
+  │   ├── event_and_compat.py      # Qt compat layer, Logger, Exceptions, EventBus
+  │   ├── system_managers.py       # Error, SafeFileOps, Startup, Config, Session, Watchdog
+  │   ├── workspace_and_editor.py  # WorkspaceManager, FileOps, FileWatcher, EditorManager
+  │   ├── lsp_engine.py            # LSPManager, LSPClient, JediProvider, ServerConfigs
+  │   └── knowledge.txt            # Detailed guide to `core/`
+  │
+  ├── agent/                       # AI Workspace Backend, Agents, Intelligence & Tools
+  │   ├── chat_and_agents.py       # AIChatEngine, ConnectionManager, Coder/Debugger/Planner
+  │   ├── context_and_memory.py    # ContextEngine, Ranker, TokenEstimator, ProjectMemory
+  │   ├── code_intelligence.py     # SymbolIndexer, ReferenceIndex, DependencyGraph, Analyzer
+  │   ├── code_editing.py          # ChangeSet, DiffGenerator, PatchBuilder, RollbackManager
+  │   ├── planning_engine.py       # TaskDecomposer, Plan, PlanValidator, ExecutionTask
+  │   ├── execution_and_verification.py # ExecutionEngine, TaskExecutor, VerificationEngine
+  │   ├── tool_engine.py           # ToolManager, ToolRegistry, TerminalTool, GitTool
+  │   ├── workspace_tools.py       # FileTool, EditorTool, SearchTool, ProjectScanner
+  │   ├── knowledge.txt            # Detailed guide to `agent/`
+  │   ├── providers/               # Local LLM (`llama.cpp`, `Ollama`, `Qwen`) & Cloud APIs
+  │   │   ├── provider_core.py     # BaseProvider, ProviderRegistry, Discovery, SecretStore
+  │   │   ├── local_providers.py   # LlamaCppLoader, LlamaCppProvider, OllamaProvider, Qwen
+  │   │   ├── cloud_providers.py   # OpenAI, Anthropic, Gemini, Groq, Cerebras, DeepInfra...
+  │   │   └── knowledge.txt        # Detailed guide to `agent/providers/`
+  │   └── models/                  # Model Catalog, Capabilities, Smart Router & Optimizer
+  │       ├── model_catalog_and_router.py # ModelCatalog, ModelRegistry, ModelRouter, Optimizer
+  │       ├── model_center_and_adapters.py # ModelCenter, QwenModel, GeminiModel, DeepSeek
+  │       └── knowledge.txt        # Detailed guide to `agent/models/`
+  │
+  ├── ui/                          # Complete PySide6 User Interface Layer
+  │   ├── main_window.py           # MainWindow orchestrator & InlineAIController
+  │   ├── shell_and_chrome.py      # TitleBar, ActivityBar, StatusBar, ToolBar, Notifications
+  │   ├── widgets_and_icons.py     # IconButton, TextButton, Pill, Vector Icons, DiffView
+  │   ├── dialogs_and_palette.py   # CommandPalette (Search & Menu), SettingsDialog, Gallery
+  │   ├── code_editor_suite.py     # CenterPanel, Dashboard, EditorTabs, CodeEditor, Highlighters
+  │   ├── sidebar_panels.py        # Sidebar + Explorer, Search, Git, Run, Tests, Tasks, Memory
+  │   ├── bottom_dock.py           # BottomDock: Interactive Terminal, Output & Smart Problem Finder
+  │   ├── ai_workspace.py          # AIWorkspace: Chat, Edit & Agent UI
+  │   └── knowledge.txt            # Detailed guide to `ui/`
+  │
+  ├── tools/                       # Explorer & File Ops, Terminal Engine, Runner, Tester, Theme & Git
+  │   ├── explorer_and_files.py    # Explorer tree view, FileOperations, FileWatcher, DeleteGuard
+  │   ├── terminal_engine.py       # HiddenProcess (CREATE_NO_WINDOW), AI Terminal Managers
+  │   ├── runner_and_tester.py     # RunManager (interactive -u stdin) & Smart Program Tester
+  │   ├── theme_and_settings.py    # 13 Color Palettes, DesignSystem, ThemeManager, Settings
+  │   ├── git_and_github.py        # GitService & GitHubService CLI integrations
+  │   └── knowledge.txt            # Detailed guide to `tools/`
+  │
+  ├── docs & resources/            # Architecture Docs, LSM Specs & Verification Test Suite
+  │   ├── PROJECT_ARCHITECTURE_AND_GUIDE.md
+  │   ├── LOCAL_LLM_AND_PROVIDERS_GUIDE.md
+  │   ├── owncode_logo.ico         # Multi-resolution (16px–256px) custom 'OC' application icon
+  │   ├── owncode_logo.png         # High-resolution 'OC' application logo
+  │   ├── lsm_and_language_resources.json
+  │   ├── verification_tests.py
+  │   └── knowledge.txt            # Detailed guide to `docs & resources/`
+  │
+  └── logs/                        # Application Runtime Logs
+      ├── owncode.log
+      └── knowledge.txt            # Detailed guide to `logs/`
+
+2. QUICK START & VERIFICATION
+-----------------------------
+  • Launch the IDE:
+      python main.py
+  • Run the automated verification test suite:
+      python "docs & resources/verification_tests.py" -v
+================================================================================

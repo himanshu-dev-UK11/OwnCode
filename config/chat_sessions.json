@@ -1,0 +1,17 @@
+{
+  "schema_version": 2,
+  "sessions": [
+    {
+      "session_id": "e6ac8571",
+      "title": "Chat 1",
+      "model_id": "llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m",
+      "provider_name": "llama_cpp",
+      "messages": [],
+      "created_at": "2026-11-11T16:30:40.579051",
+      "last_activity": "2026-11-11T16:30:40.579055",
+      "is_pinned": false
+    }
+  ],
+  "current_session_id": "e6ac8571",
+  "saved_at": "2026-11-11T16:30:40.579094"
+}

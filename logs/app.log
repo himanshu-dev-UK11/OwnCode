@@ -1,0 +1,847 @@
+2026-11-10 15:38:58 | core.event_and_compat     | CRITICAL | Uncaught exception
+Traceback (most recent call last):
+  File "<string>", line 2, in <module>
+  File "/tmp/owncode_inspect/OwnCode/agent/code_editing.py", line 3820
+    cand = raw_candidate.strip().strip("`'"").strip()
+                                           ^
+SyntaxError: unterminated string literal (detected at line 3820)
+2026-11-10 15:39:12 | core.event_and_compat     | CRITICAL | Uncaught exception
+Traceback (most recent call last):
+  File "<string>", line 9, in <module>
+  File "/tmp/owncode_inspect/OwnCode/agent/code_editing.py", line 3824
+    if not cand or " " in cand or "
+                                  ^
+SyntaxError: unterminated string literal (detected at line 3824)
+2026-11-10 15:40:14 | agent.code_intelligence   | CRITICAL | Uncaught exception
+Traceback (most recent call last):
+  File "<string>", line 38, in <module>
+AttributeError: 'ChangeOperation' object has no attribute 'operation_type'
+2026-11-10 15:48:09 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-10 15:48:09 | provider.llama_cpp        | ERROR    | llama.cpp connection failed: startup failed
+2026-11-10 15:48:09 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 15:48:09 | agent.models.model_catalog_and_router | INFO     | Automatic Router: Selected llama_cpp:code-model (Score: 30208, Task: simple_chat, Can reply: Yes, Active: Yes)
+2026-11-10 15:48:09 | agent.code_intelligence   | INFO     | Building dependency graph for: /tmp/tmphte26jt3
+2026-11-10 15:48:09 | agent.code_intelligence   | INFO     | Found 1 source files
+2026-11-10 15:48:09 | agent.code_intelligence   | INFO     | Dependency graph built: 1 nodes, 0 edges
+2026-11-10 15:48:09 | agent.code_editing        | INFO     | RollbackManager: checkpoint ckpt_f9c created for 1 files.
+2026-11-10 15:48:09 | agent.code_editing        | INFO     | ChangeApplier: applying 1 operations, rollback_id=ckpt_f9c...
+2026-11-10 15:48:09 | agent.code_editing        | INFO     | ChangeApplier: modified 'calc.py', 1 hunks applied
+2026-11-10 15:48:09 | tools.runner_and_tester   | INFO     | Executing: /usr/bin/python3 -u /tmp/tmp33caa__i/hello.py in /tmp/tmp33caa__i
+2026-11-10 15:48:09 | agent.code_intelligence   | INFO     | Indexing symbols in: /tmp/tmpl5xz8vca
+2026-11-10 15:48:09 | agent.code_intelligence   | INFO     | Indexed 2 symbols in project
+2026-11-10 15:48:09 | agent.code_intelligence   | INFO     | Building reference index for: /tmp/tmpl5xz8vca
+2026-11-10 15:48:09 | agent.code_intelligence   | INFO     | Reference index built: 2 symbols referenced
+2026-11-10 15:48:09 | agent.code_intelligence   | INFO     | Building dependency graph for: /tmp/tmpl5xz8vca
+2026-11-10 15:48:09 | agent.code_intelligence   | INFO     | Found 2 source files
+2026-11-10 15:48:09 | agent.code_intelligence   | INFO     | Dependency graph built: 2 nodes, 1 edges
+2026-11-10 15:48:09 | agent.context_and_memory  | INFO     | ProjectMemory initialized (0 facts)
+2026-11-10 15:51:07 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-10 15:51:07 | provider.llama_cpp        | ERROR    | llama.cpp connection failed: startup failed
+2026-11-10 15:51:07 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 15:51:07 | agent.models.model_catalog_and_router | INFO     | Automatic Router: Selected llama_cpp:code-model (Score: 30208, Task: simple_chat, Can reply: Yes, Active: Yes)
+2026-11-10 15:51:07 | agent.code_intelligence   | INFO     | Building dependency graph for: /dev/shm/tmp_hhsidkr
+2026-11-10 15:51:07 | agent.code_intelligence   | INFO     | Found 1 source files
+2026-11-10 15:51:07 | agent.code_intelligence   | INFO     | Dependency graph built: 1 nodes, 0 edges
+2026-11-10 15:51:07 | agent.code_editing        | INFO     | RollbackManager: checkpoint ckpt_7f8 created for 1 files.
+2026-11-10 15:51:07 | agent.code_editing        | INFO     | ChangeApplier: applying 1 operations, rollback_id=ckpt_7f8...
+2026-11-10 15:51:07 | agent.code_editing        | INFO     | ChangeApplier: modified 'calc.py', 1 hunks applied
+2026-11-10 15:51:07 | tools.runner_and_tester   | INFO     | Executing: /usr/bin/python3 -u /dev/shm/tmp6c72nrd8/hello.py in /dev/shm/tmp6c72nrd8
+2026-11-10 15:51:07 | agent.code_intelligence   | INFO     | Indexing symbols in: /dev/shm/tmphnni9swb
+2026-11-10 15:51:07 | agent.code_intelligence   | INFO     | Indexed 2 symbols in project
+2026-11-10 15:51:07 | agent.code_intelligence   | INFO     | Building reference index for: /dev/shm/tmphnni9swb
+2026-11-10 15:51:07 | agent.code_intelligence   | INFO     | Reference index built: 2 symbols referenced
+2026-11-10 15:51:07 | agent.code_intelligence   | INFO     | Building dependency graph for: /dev/shm/tmphnni9swb
+2026-11-10 15:51:07 | agent.code_intelligence   | INFO     | Found 2 source files
+2026-11-10 15:51:07 | agent.code_intelligence   | INFO     | Dependency graph built: 2 nodes, 1 edges
+2026-11-10 15:51:07 | agent.context_and_memory  | INFO     | ProjectMemory initialized (0 facts)
+2026-11-10 15:51:34 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-10 15:51:34 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 15:51:34 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 15:51:34 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 15:51:34 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 15:51:34 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 15:51:34 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 15:51:34 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 15:51:34 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 15:51:34 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 15:51:34 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 15:51:34 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 15:51:34 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 15:51:34 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 15:51:34 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 15:51:34 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 15:51:34 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 15:51:34 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 15:51:34 | core.event_and_compat     | ERROR    | Error in event callback for ai_apply_code_block: No module named 'agent.verification'
+Traceback (most recent call last):
+  File "/tmp/owncode_inspect/OwnCode/core/event_and_compat.py", line 645, in _dispatch_event
+    callback(data)
+  File "/tmp/owncode_inspect/OwnCode/agent/chat_and_agents.py", line 1570, in _on_apply_code_block
+    self.apply_agent_operations(ops, str(ws_root), user_prompt=last_prompt)
+  File "/tmp/owncode_inspect/OwnCode/agent/chat_and_agents.py", line 1449, in apply_agent_operations
+    from agent.verification import SelfHealingVerifier
+ModuleNotFoundError: No module named 'agent.verification'
+2026-11-10 15:51:34 | agent.code_intelligence   | INFO     | Building dependency graph for: /tmp/tmpvvluy2wi
+2026-11-10 15:51:34 | agent.code_intelligence   | INFO     | Found 1 source files
+2026-11-10 15:51:34 | agent.code_intelligence   | INFO     | Dependency graph built: 1 nodes, 0 edges
+2026-11-10 15:51:34 | agent.code_editing        | INFO     | RollbackManager: checkpoint ckpt_7a4 created for 1 files.
+2026-11-10 15:51:34 | agent.code_editing        | INFO     | ChangeApplier: applying 1 operations, rollback_id=ckpt_7a4...
+2026-11-10 15:51:34 | agent.code_editing        | INFO     | ChangeApplier: modified 'calc.py', 1 hunks applied
+2026-11-10 15:51:49 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-10 15:51:49 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 15:51:49 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 15:51:49 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 15:51:49 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 15:51:49 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 15:51:49 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 15:51:49 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 15:51:49 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 15:51:49 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 15:51:49 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 15:51:49 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 15:51:49 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 15:51:49 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 15:51:49 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 15:51:49 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 15:51:49 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 15:51:49 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 15:51:49 | agent.code_intelligence   | INFO     | Building dependency graph for: /tmp/tmpmdjwz9_3
+2026-11-10 15:51:49 | agent.code_intelligence   | INFO     | Found 1 source files
+2026-11-10 15:51:49 | agent.code_intelligence   | INFO     | Dependency graph built: 1 nodes, 0 edges
+2026-11-10 15:51:49 | agent.code_editing        | INFO     | RollbackManager: checkpoint ckpt_198 created for 1 files.
+2026-11-10 15:51:49 | agent.code_editing        | INFO     | ChangeApplier: applying 1 operations, rollback_id=ckpt_198...
+2026-11-10 15:51:49 | agent.code_editing        | INFO     | ChangeApplier: modified 'calc.py', 1 hunks applied
+2026-11-10 15:52:12 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-10 15:52:12 | provider.llama_cpp        | ERROR    | llama.cpp connection failed: startup failed
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | INFO     | Automatic Router: Selected llama_cpp:code-model (Score: 30208, Task: simple_chat, Can reply: Yes, Active: Yes)
+2026-11-10 15:52:12 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 15:52:12 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 15:52:12 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 15:52:12 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 15:52:12 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 15:52:12 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 15:52:12 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 15:52:12 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 15:52:12 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 15:52:12 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 15:52:12 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 15:52:12 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 15:52:12 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 15:52:12 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 15:52:12 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 15:52:12 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 15:52:12 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 15:52:12 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpsu7kdt8t
+2026-11-10 15:52:12 | agent.code_intelligence   | INFO     | Found 1 source files
+2026-11-10 15:52:12 | agent.code_intelligence   | INFO     | Dependency graph built: 1 nodes, 0 edges
+2026-11-10 15:52:12 | agent.code_editing        | INFO     | RollbackManager: checkpoint ckpt_2dc created for 1 files.
+2026-11-10 15:52:12 | agent.code_editing        | INFO     | ChangeApplier: applying 1 operations, rollback_id=ckpt_2dc...
+2026-11-10 15:52:12 | agent.code_editing        | INFO     | ChangeApplier: modified 'calc.py', 1 hunks applied
+2026-11-10 15:52:12 | tools.runner_and_tester   | INFO     | Executing: /usr/bin/python3 -u /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpmzhabr3b/hello.py in /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpmzhabr3b
+2026-11-10 15:52:12 | agent.code_intelligence   | INFO     | Indexing symbols in: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmplunywfxj
+2026-11-10 15:52:12 | agent.code_intelligence   | INFO     | Indexed 2 symbols in project
+2026-11-10 15:52:12 | agent.code_intelligence   | INFO     | Building reference index for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmplunywfxj
+2026-11-10 15:52:12 | agent.code_intelligence   | INFO     | Reference index built: 2 symbols referenced
+2026-11-10 15:52:12 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmplunywfxj
+2026-11-10 15:52:12 | agent.code_intelligence   | INFO     | Found 2 source files
+2026-11-10 15:52:12 | agent.code_intelligence   | INFO     | Dependency graph built: 2 nodes, 1 edges
+2026-11-10 15:52:12 | agent.context_and_memory  | INFO     | ProjectMemory initialized (0 facts)
+2026-11-10 16:22:05 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-10 16:22:05 | provider.llama_cpp        | ERROR    | llama.cpp connection failed: startup failed
+2026-11-10 16:22:05 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:22:05 | agent.models.model_catalog_and_router | INFO     | Automatic Router: Selected llama_cpp:code-model (Score: 30208, Task: simple_chat, Can reply: Yes, Active: Yes)
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:22:06 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:22:06 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:22:06 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:22:06 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:22:06 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:22:06 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:22:06 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp11r42q61
+2026-11-10 16:22:06 | agent.code_intelligence   | INFO     | Found 1 source files
+2026-11-10 16:22:06 | agent.code_intelligence   | INFO     | Dependency graph built: 1 nodes, 0 edges
+2026-11-10 16:22:06 | agent.code_editing        | INFO     | RollbackManager: checkpoint ckpt_2f1 created for 1 files.
+2026-11-10 16:22:06 | agent.code_editing        | INFO     | ChangeApplier: applying 1 operations, rollback_id=ckpt_2f1...
+2026-11-10 16:22:06 | agent.code_editing        | INFO     | ChangeApplier: modified 'calc.py', 1 hunks applied
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:22:06 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:22:06 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:22:06 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:22:06 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:22:06 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:22:06 | tools.runner_and_tester   | INFO     | Executing: /usr/bin/python3 -u /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpadfzqht_/hello.py in /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpadfzqht_
+2026-11-10 16:22:06 | agent.code_intelligence   | INFO     | Indexing symbols in: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp63o94r7e
+2026-11-10 16:22:06 | agent.code_intelligence   | INFO     | Indexed 2 symbols in project
+2026-11-10 16:22:06 | agent.code_intelligence   | INFO     | Building reference index for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp63o94r7e
+2026-11-10 16:22:06 | agent.code_intelligence   | INFO     | Reference index built: 2 symbols referenced
+2026-11-10 16:22:06 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp63o94r7e
+2026-11-10 16:22:06 | agent.code_intelligence   | INFO     | Found 2 source files
+2026-11-10 16:22:06 | agent.code_intelligence   | INFO     | Dependency graph built: 2 nodes, 1 edges
+2026-11-10 16:22:06 | agent.context_and_memory  | INFO     | ProjectMemory initialized (0 facts)
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-10 16:22:27 | provider.llama_cpp        | ERROR    | llama.cpp connection failed: startup failed
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | Automatic Router: Selected llama_cpp:code-model (Score: 30208, Task: simple_chat, Can reply: Yes, Active: Yes)
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:22:27 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:22:27 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:22:27 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:22:27 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:22:27 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:22:27 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:22:27 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp60e8f5hz
+2026-11-10 16:22:27 | agent.code_intelligence   | INFO     | Found 1 source files
+2026-11-10 16:22:27 | agent.code_intelligence   | INFO     | Dependency graph built: 1 nodes, 0 edges
+2026-11-10 16:22:27 | agent.code_editing        | INFO     | RollbackManager: checkpoint ckpt_472 created for 1 files.
+2026-11-10 16:22:27 | agent.code_editing        | INFO     | ChangeApplier: applying 1 operations, rollback_id=ckpt_472...
+2026-11-10 16:22:27 | agent.code_editing        | INFO     | ChangeApplier: modified 'calc.py', 1 hunks applied
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:22:27 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:22:27 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:22:27 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:22:27 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:22:27 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:22:27 | tools.runner_and_tester   | INFO     | Executing: /usr/bin/python3 -u /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmphcfgkaoh/hello.py in /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmphcfgkaoh
+2026-11-10 16:22:27 | agent.code_intelligence   | INFO     | Indexing symbols in: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpj9odifmx
+2026-11-10 16:22:27 | agent.code_intelligence   | INFO     | Indexed 2 symbols in project
+2026-11-10 16:22:27 | agent.code_intelligence   | INFO     | Building reference index for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpj9odifmx
+2026-11-10 16:22:27 | agent.code_intelligence   | INFO     | Reference index built: 2 symbols referenced
+2026-11-10 16:22:27 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpj9odifmx
+2026-11-10 16:22:27 | agent.code_intelligence   | INFO     | Found 2 source files
+2026-11-10 16:22:27 | agent.code_intelligence   | INFO     | Dependency graph built: 2 nodes, 1 edges
+2026-11-10 16:22:27 | agent.context_and_memory  | INFO     | ProjectMemory initialized (0 facts)
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-10 16:22:48 | provider.llama_cpp        | ERROR    | llama.cpp connection failed: startup failed
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | Automatic Router: Selected llama_cpp:code-model (Score: 30208, Task: simple_chat, Can reply: Yes, Active: Yes)
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:22:48 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:22:48 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:22:48 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:22:48 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:22:48 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:22:48 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:22:48 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpabjb4xe2
+2026-11-10 16:22:48 | agent.code_intelligence   | INFO     | Found 1 source files
+2026-11-10 16:22:48 | agent.code_intelligence   | INFO     | Dependency graph built: 1 nodes, 0 edges
+2026-11-10 16:22:48 | agent.code_editing        | INFO     | RollbackManager: checkpoint ckpt_05d created for 1 files.
+2026-11-10 16:22:48 | agent.code_editing        | INFO     | ChangeApplier: applying 1 operations, rollback_id=ckpt_05d...
+2026-11-10 16:22:48 | agent.code_editing        | INFO     | ChangeApplier: modified 'calc.py', 1 hunks applied
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:22:48 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:22:48 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:22:48 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:22:48 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:22:48 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:22:48 | tools.runner_and_tester   | INFO     | Executing: /usr/bin/python3 -u /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpjc9zfnqc/hello.py in /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpjc9zfnqc
+2026-11-10 16:22:48 | agent.code_intelligence   | INFO     | Indexing symbols in: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpae796bqi
+2026-11-10 16:22:48 | agent.code_intelligence   | INFO     | Indexed 2 symbols in project
+2026-11-10 16:22:48 | agent.code_intelligence   | INFO     | Building reference index for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpae796bqi
+2026-11-10 16:22:48 | agent.code_intelligence   | INFO     | Reference index built: 2 symbols referenced
+2026-11-10 16:22:48 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpae796bqi
+2026-11-10 16:22:48 | agent.code_intelligence   | INFO     | Found 2 source files
+2026-11-10 16:22:48 | agent.code_intelligence   | INFO     | Dependency graph built: 2 nodes, 1 edges
+2026-11-10 16:22:48 | agent.context_and_memory  | INFO     | ProjectMemory initialized (0 facts)
+2026-11-10 16:23:01 | tools.runner_and_tester   | CRITICAL | Uncaught exception
+Traceback (most recent call last):
+  File "<string>", line 2, in <module>
+ImportError: cannot import name 'ProgramTester' from 'tools.runner_and_tester' (/tmp/owncode_inspect/OwnCode/tools/runner_and_tester.py)
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-10 16:23:59 | provider.llama_cpp        | ERROR    | llama.cpp connection failed: startup failed
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | Automatic Router: Selected llama_cpp:code-model (Score: 30208, Task: simple_chat, Can reply: Yes, Active: Yes)
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:23:59 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:23:59 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:23:59 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:23:59 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:23:59 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:23:59 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:23:59 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp5hoqy5hd
+2026-11-10 16:23:59 | agent.code_intelligence   | INFO     | Found 1 source files
+2026-11-10 16:23:59 | agent.code_intelligence   | INFO     | Dependency graph built: 1 nodes, 0 edges
+2026-11-10 16:23:59 | agent.code_editing        | INFO     | RollbackManager: checkpoint ckpt_7fc created for 1 files.
+2026-11-10 16:23:59 | agent.code_editing        | INFO     | ChangeApplier: applying 1 operations, rollback_id=ckpt_7fc...
+2026-11-10 16:23:59 | agent.code_editing        | INFO     | ChangeApplier: modified 'calc.py', 1 hunks applied
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:23:59 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:23:59 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:23:59 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:23:59 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:23:59 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:23:59 | tools.runner_and_tester   | INFO     | Executing: /usr/bin/python3 -u /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpqhh1z9zg/hello.py in /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpqhh1z9zg
+2026-11-10 16:23:59 | agent.code_intelligence   | INFO     | Indexing symbols in: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp9g_6dgup
+2026-11-10 16:23:59 | agent.code_intelligence   | INFO     | Indexed 2 symbols in project
+2026-11-10 16:23:59 | agent.code_intelligence   | INFO     | Building reference index for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp9g_6dgup
+2026-11-10 16:23:59 | agent.code_intelligence   | INFO     | Reference index built: 2 symbols referenced
+2026-11-10 16:23:59 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp9g_6dgup
+2026-11-10 16:23:59 | agent.code_intelligence   | INFO     | Found 2 source files
+2026-11-10 16:23:59 | agent.code_intelligence   | INFO     | Dependency graph built: 2 nodes, 1 edges
+2026-11-10 16:23:59 | agent.context_and_memory  | INFO     | ProjectMemory initialized (0 facts)
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-10 16:24:34 | provider.llama_cpp        | ERROR    | llama.cpp connection failed: startup failed
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | Automatic Router: Selected llama_cpp:code-model (Score: 30208, Task: simple_chat, Can reply: Yes, Active: Yes)
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:24:34 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:24:34 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:24:34 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:24:34 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:24:34 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:24:34 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:24:34 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpugpy0ccd
+2026-11-10 16:24:34 | agent.code_intelligence   | INFO     | Found 1 source files
+2026-11-10 16:24:34 | agent.code_intelligence   | INFO     | Dependency graph built: 1 nodes, 0 edges
+2026-11-10 16:24:34 | agent.code_editing        | INFO     | RollbackManager: checkpoint ckpt_af1 created for 1 files.
+2026-11-10 16:24:34 | agent.code_editing        | INFO     | ChangeApplier: applying 1 operations, rollback_id=ckpt_af1...
+2026-11-10 16:24:34 | agent.code_editing        | INFO     | ChangeApplier: modified 'calc.py', 1 hunks applied
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:24:34 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:24:34 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:24:34 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:24:34 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:24:34 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:24:34 | tools.runner_and_tester   | INFO     | Executing: /usr/bin/python3 -u /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpjo9jv1y5/hello.py in /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpjo9jv1y5
+2026-11-10 16:24:34 | agent.code_intelligence   | INFO     | Indexing symbols in: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmppw_im3tl
+2026-11-10 16:24:34 | agent.code_intelligence   | INFO     | Indexed 2 symbols in project
+2026-11-10 16:24:34 | agent.code_intelligence   | INFO     | Building reference index for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmppw_im3tl
+2026-11-10 16:24:34 | agent.code_intelligence   | INFO     | Reference index built: 2 symbols referenced
+2026-11-10 16:24:34 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmppw_im3tl
+2026-11-10 16:24:34 | agent.code_intelligence   | INFO     | Found 2 source files
+2026-11-10 16:24:34 | agent.code_intelligence   | INFO     | Dependency graph built: 2 nodes, 1 edges
+2026-11-10 16:24:34 | agent.context_and_memory  | INFO     | ProjectMemory initialized (0 facts)
+2026-11-10 16:47:44 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-10 16:47:44 | provider.llama_cpp        | ERROR    | llama.cpp connection failed: startup failed
+2026-11-10 16:47:44 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:47:44 | agent.models.model_catalog_and_router | INFO     | Automatic Router: Selected llama_cpp:code-model (Score: 30208, Task: simple_chat, Can reply: Yes, Active: Yes)
+2026-11-10 16:47:45 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp8x71ilgz
+2026-11-10 16:47:45 | agent.code_intelligence   | INFO     | Found 1 source files
+2026-11-10 16:47:45 | agent.code_intelligence   | INFO     | Dependency graph built: 1 nodes, 0 edges
+2026-11-10 16:47:45 | agent.code_editing        | INFO     | RollbackManager: checkpoint ckpt_b38 created for 1 files.
+2026-11-10 16:47:45 | agent.code_editing        | INFO     | ChangeApplier: applying 1 operations, rollback_id=ckpt_b38...
+2026-11-10 16:47:45 | agent.code_editing        | INFO     | ChangeApplier: modified 'calc.py', 1 hunks applied
+2026-11-10 16:47:45 | tools.runner_and_tester   | INFO     | Executing: /usr/bin/python3 -u /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp24paq6r8/hello.py in /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp24paq6r8
+2026-11-10 16:47:45 | agent.code_intelligence   | INFO     | Indexing symbols in: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpqsrjbqhf
+2026-11-10 16:47:45 | agent.code_intelligence   | INFO     | Indexed 2 symbols in project
+2026-11-10 16:47:45 | agent.code_intelligence   | INFO     | Building reference index for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpqsrjbqhf
+2026-11-10 16:47:45 | agent.code_intelligence   | INFO     | Reference index built: 2 symbols referenced
+2026-11-10 16:47:45 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpqsrjbqhf
+2026-11-10 16:47:45 | agent.code_intelligence   | INFO     | Found 2 source files
+2026-11-10 16:47:45 | agent.code_intelligence   | INFO     | Dependency graph built: 2 nodes, 1 edges
+2026-11-10 16:47:45 | agent.context_and_memory  | INFO     | ProjectMemory initialized (0 facts)
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-10 16:48:11 | provider.llama_cpp        | ERROR    | llama.cpp connection failed: startup failed
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | Automatic Router: Selected llama_cpp:code-model (Score: 30208, Task: simple_chat, Can reply: Yes, Active: Yes)
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:48:11 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:48:11 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:48:11 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:48:11 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:48:11 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:48:11 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:48:11 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp3r22d47s
+2026-11-10 16:48:11 | agent.code_intelligence   | INFO     | Found 1 source files
+2026-11-10 16:48:11 | agent.code_intelligence   | INFO     | Dependency graph built: 1 nodes, 0 edges
+2026-11-10 16:48:11 | agent.code_editing        | INFO     | RollbackManager: checkpoint ckpt_8c3 created for 1 files.
+2026-11-10 16:48:11 | agent.code_editing        | INFO     | ChangeApplier: applying 1 operations, rollback_id=ckpt_8c3...
+2026-11-10 16:48:11 | agent.code_editing        | INFO     | ChangeApplier: modified 'calc.py', 1 hunks applied
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:48:11 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:48:11 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:48:11 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:48:11 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:48:11 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:48:11 | tools.runner_and_tester   | INFO     | Executing: /usr/bin/python3 -u /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp7r_ac1jc/hello.py in /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp7r_ac1jc
+2026-11-10 16:48:11 | agent.code_intelligence   | INFO     | Indexing symbols in: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp7eclwne9
+2026-11-10 16:48:11 | agent.code_intelligence   | INFO     | Indexed 2 symbols in project
+2026-11-10 16:48:11 | agent.code_intelligence   | INFO     | Building reference index for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp7eclwne9
+2026-11-10 16:48:11 | agent.code_intelligence   | INFO     | Reference index built: 2 symbols referenced
+2026-11-10 16:48:11 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp7eclwne9
+2026-11-10 16:48:11 | agent.code_intelligence   | INFO     | Found 2 source files
+2026-11-10 16:48:11 | agent.code_intelligence   | INFO     | Dependency graph built: 2 nodes, 1 edges
+2026-11-10 16:48:12 | agent.context_and_memory  | INFO     | ProjectMemory initialized (0 facts)
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-10 16:48:33 | provider.llama_cpp        | ERROR    | llama.cpp connection failed: startup failed
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | Automatic Router: Selected llama_cpp:code-model (Score: 30208, Task: simple_chat, Can reply: Yes, Active: Yes)
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:48:33 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:48:33 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:48:33 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:48:33 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:48:33 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:48:33 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:48:33 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmps0ko6qir
+2026-11-10 16:48:33 | agent.code_intelligence   | INFO     | Found 1 source files
+2026-11-10 16:48:33 | agent.code_intelligence   | INFO     | Dependency graph built: 1 nodes, 0 edges
+2026-11-10 16:48:33 | agent.code_editing        | INFO     | RollbackManager: checkpoint ckpt_dde created for 1 files.
+2026-11-10 16:48:33 | agent.code_editing        | INFO     | ChangeApplier: applying 1 operations, rollback_id=ckpt_dde...
+2026-11-10 16:48:33 | agent.code_editing        | INFO     | ChangeApplier: modified 'calc.py', 1 hunks applied
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-10 16:48:33 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-10 16:48:33 | agent.models.model_center_and_adapters | WARNING  | Model config directory not found: config/models
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-10 16:48:33 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | WARNING  | Model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m not available, selecting best alternative
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | WARNING  | No healthy models available
+2026-11-10 16:48:33 | agent.models.model_catalog_and_router | ERROR    | No healthy models available
+2026-11-10 16:48:33 | agent.chat_and_agents     | WARNING  | ⚠ No active models available for auto-selection on startup
+2026-11-10 16:48:33 | tools.runner_and_tester   | INFO     | Executing: /usr/bin/python3 -u /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpslywx5n9/hello.py in /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmpslywx5n9
+2026-11-10 16:48:33 | agent.code_intelligence   | INFO     | Indexing symbols in: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp4_exxbyq
+2026-11-10 16:48:33 | agent.code_intelligence   | INFO     | Indexed 2 symbols in project
+2026-11-10 16:48:33 | agent.code_intelligence   | INFO     | Building reference index for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp4_exxbyq
+2026-11-10 16:48:33 | agent.code_intelligence   | INFO     | Reference index built: 2 symbols referenced
+2026-11-10 16:48:33 | agent.code_intelligence   | INFO     | Building dependency graph for: /working_dir/c_7cddba04f06d4b9f/tmp_exec/tmp4_exxbyq
+2026-11-10 16:48:33 | agent.code_intelligence   | INFO     | Found 2 source files
+2026-11-10 16:48:33 | agent.code_intelligence   | INFO     | Dependency graph built: 2 nodes, 1 edges
+2026-11-10 16:48:33 | agent.context_and_memory  | INFO     | ProjectMemory initialized (0 facts)
+2026-11-11 22:00:17 | main                      | INFO     | ============================================================
+2026-11-11 22:00:17 | main                      | INFO     | Initializing OwnCode v2.0 (Fast Startup)...
+2026-11-11 22:00:17 | main                      | INFO     | ============================================================
+2026-11-11 22:00:17 | main                      | INFO     | Validating startup environment...
+2026-11-11 22:00:17 | main                      | INFO     | Startup validation complete
+2026-11-11 22:00:20 | core.system_managers      | INFO     | Performance watchdog started
+2026-11-11 22:00:20 | core.workspace_and_editor | INFO     | [WorkspaceManager.__init__] Loading settings...
+2026-11-11 22:00:20 | core.workspace_and_editor | INFO     | [WorkspaceManager.__init__] Subscribing to events...
+2026-11-11 22:00:20 | core.workspace_and_editor | INFO     | [WorkspaceManager.__init__] Initialization complete!
+2026-11-11 22:00:20 | core.workspace_and_editor | INFO     | [EditorManager._subscribe] Subscribing to events
+2026-11-11 22:00:20 | agent.context_and_memory  | INFO     | ProjectMemory initialized (0 facts)
+2026-11-11 22:00:20 | core.system_managers      | INFO     | Starting background initialization worker
+2026-11-11 22:00:20 | core.workspace_and_editor | INFO     | [WorkspaceManager.load_session] Loading session...
+2026-11-11 22:00:20 | core.system_managers      | INFO     | Background initialization started with 1 tasks
+2026-11-11 22:00:20 | core.system_managers      | INFO     | Background task starting: heavy_systems
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Standard providers registered successfully
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | ProviderRegistry initialized with config_dir: config/providers
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | SecretStore backend: encrypted-file
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Created provider: anthropic
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Registered provider: anthropic
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Created provider: cerebras
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Registered provider: cerebras
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Created provider: custom
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Registered provider: custom
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Created provider: deepinfra
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Registered provider: deepinfra
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Created provider: fireworks
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Registered provider: fireworks
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Created provider: gemini
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Registered provider: gemini
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Created provider: groq
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Registered provider: groq
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Created provider: llama_cpp
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Registered provider: llama_cpp
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Created provider: ollama
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Registered provider: ollama
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Created provider: openai
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Registered provider: openai
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Created provider: qwen
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Registered provider: qwen
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Created provider: together
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Registered provider: together
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Loaded 12 providers from config/providers
+2026-11-11 22:00:21 | main                      | INFO     | Loaded 12 providers from config
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | ProviderHealth initialized
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | ProviderManager initialized
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Health monitoring started
+2026-11-11 22:00:21 | agent.providers.provider_core | INFO     | Background recovery started
+2026-11-11 22:00:21 | main                      | INFO     | [OK] Registered llama_cpp GGUF models (lazy on-demand startup)
+2026-11-11 22:00:23 | agent.providers.local_providers | INFO     | Starting llama-server for model 'qwen2.5-coder-7b-instruct-q4_k_m' on 127.0.0.1:8080
+2026-11-11 22:00:23 | provider.qwen             | INFO     | Connected to Qwen3 at http://localhost:11434 (Ollama: True)
+2026-11-11 22:00:23 | provider.ollama           | INFO     | Connected to Ollama at http://localhost:11434 (6 installed model(s))
+2026-11-11 22:00:23 | main                      | INFO     | [OK] Connected to ollama
+2026-11-11 22:00:25 | provider.qwen             | INFO     | Refreshed 4 Qwen models
+2026-11-11 22:00:25 | main                      | INFO     | [OK] Connected to qwen
+2026-11-11 22:00:25 | provider.ollama           | INFO     | Refreshed 6 Ollama model(s)
+2026-11-11 22:00:27 | provider.qwen             | INFO     | Refreshed 4 Qwen models
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Loaded 0 official models into catalog
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | ModelCatalog initialized with official models
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | ModelRegistry initialized with catalog
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: llama_cpp:LFM3-1.7B-Uncensored-AD-Q4_K_M
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: llama_cpp:LFM3-1.7B-Uncensored-AD-Q4_K_M
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: llama_cpp:Nemotron-3.5-Bolt-E4B-Q4_K_M
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: llama_cpp:Nemotron-3.5-Bolt-E4B-Q4_K_M
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: llama_cpp:qwen2.5-coder-14b-instruct-q4_k_m
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: llama_cpp:qwen2.5-coder-14b-instruct-q4_k_m
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: llama_cpp:qwen2.5-coder-3b-instruct-q5_k_m
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: llama_cpp:qwen2.5-coder-3b-instruct-q5_k_m
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: llama_cpp:Qwen3-Coder-30B-A3B-Instruct-Q3_K_M
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: llama_cpp:Qwen3-Coder-30B-A3B-Instruct-Q3_K_M
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: llama_cpp:Qwen3.8-27B-UD-Q4_K_M
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: llama_cpp:Qwen3.8-27B-UD-Q4_K_M
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: ollama:hf.co/LiquidAI/LFM3-1.7B-GGUF:Q4_K_M
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: ollama:hf.co/LiquidAI/LFM3-1.7B-GGUF:Q4_K_M
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: ollama:qwen3-coder:30b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: ollama:qwen3-coder:30b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: ollama:deepseek-r1:14b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: ollama:deepseek-r1:14b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: ollama:qwen2.5-coder:14b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: ollama:qwen2.5-coder:14b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: ollama:qwen3:8b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: ollama:qwen3:8b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: ollama:qwen2.5-coder:7b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: ollama:qwen2.5-coder:7b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: qwen:qwen3-coder:30b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: qwen:qwen3-coder:30b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: qwen:qwen2.5-coder:14b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: qwen:qwen2.5-coder:14b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: qwen:qwen3:8b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: qwen:qwen3:8b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Added custom model to catalog: qwen:qwen2.5-coder:7b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Registered model: qwen:qwen2.5-coder:7b
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-11 22:00:27 | agent.chat_and_agents     | INFO     | AIConnectionManager initialized with 0 connections
+2026-11-11 22:00:27 | agent.chat_and_agents     | INFO     | AI-IDE Integration initialized
+2026-11-11 22:00:27 | agent.chat_and_agents     | INFO     | AI-IDE integration initialized successfully
+2026-11-11 22:00:27 | agent.workspace_tools     | INFO     | Registered tool: file
+2026-11-11 22:00:27 | agent.workspace_tools     | INFO     | Registered tool: project
+2026-11-11 22:00:27 | agent.workspace_tools     | INFO     | Registered tool: execute
+2026-11-11 22:00:27 | agent.workspace_tools     | INFO     | Registered tool: search
+2026-11-11 22:00:27 | agent.workspace_tools     | INFO     | Registered tool: editor
+2026-11-11 22:00:27 | agent.workspace_tools     | INFO     | Registered tool: lsp
+2026-11-11 22:00:27 | agent.workspace_tools     | INFO     | Registered tool: git
+2026-11-11 22:00:27 | agent.workspace_tools     | INFO     | AIToolCoordinator initialized with 7 tools
+2026-11-11 22:00:27 | agent.workspace_tools     | INFO     | AI Tool Coordinator initialized successfully
+2026-11-11 22:00:27 | agent.chat_and_agents     | INFO     | AI tools initialized with workspace: None
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | LLM Optimizer initialized
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | LLM Optimizer initialized and ready
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Keep-alive heartbeat started
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | ModelRouter (Smart) initialized.
+2026-11-11 22:00:27 | agent.chat_and_agents     | INFO     | Auto-selecting best available model on startup...
+2026-11-11 22:00:27 | agent.models.model_catalog_and_router | INFO     | Using explicitly requested model: llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m
+2026-11-11 22:00:27 | agent.chat_and_agents     | INFO     | Updated current provider to llama_cpp for model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m
+2026-11-11 22:00:27 | agent.chat_and_agents     | INFO     | ✓ Auto-selected initial model: llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m (can reply and is active)
+2026-11-11 22:00:27 | agent.chat_and_agents     | INFO     | Tool coordinator connected to AI chat engine
+2026-11-11 22:00:27 | agent.chat_and_agents     | INFO     | Chat engine connected to tool coordinator
+2026-11-11 22:00:27 | agent.chat_and_agents     | INFO     | LLM optimizer connected to AI chat engine
+2026-11-11 22:00:27 | agent.execution_and_verification | INFO     | ExecutionQueue initialized (file=execution_queue_main.json)
+2026-11-11 22:00:27 | agent.execution_and_verification | INFO     | TaskScheduler initialized
+2026-11-11 22:00:27 | agent.execution_and_verification | INFO     | TaskExecutor initialized (pool_size=4, max_retries=2)
+2026-11-11 22:00:27 | agent.execution_and_verification | INFO     | ExecutionMonitor initialized
+2026-11-11 22:00:27 | agent.execution_and_verification | INFO     | ExecutionMetrics initialized
+2026-11-11 22:00:27 | agent.execution_and_verification | INFO     | ExecutionEngine initialized
+2026-11-11 22:00:27 | agent.execution_and_verification | INFO     | VerificationEngine initialized (root='OwnCode', config=5 verifiers)
+2026-11-11 22:00:27 | agent.context_and_memory  | INFO     | ContextEngine ready — root='OwnCode', max_files=15, model_limit=128,000 tokens.
+2026-11-11 22:00:27 | agent.context_and_memory  | INFO     | ProjectMemory initialized (0 facts)
+2026-11-11 22:00:27 | agent.context_and_memory  | INFO     | DecisionMemory initialized (0 past decisions)
+2026-11-11 22:00:27 | agent.planning_engine     | INFO     | TaskAnalyzer initialized.
+2026-11-11 22:00:27 | agent.execution_and_verification | INFO     | EngineeringWorkflowCoordinator initialized.
+2026-11-11 22:00:27 | main                      | INFO     | Background initialization complete
+2026-11-11 22:00:27 | agent.coder               | INFO     | coder agent initialized.
+2026-11-11 22:00:27 | main                      | INFO     | ============================================================
+2026-11-11 22:00:27 | main                      | INFO     | OwnCode v2.0 ready!
+2026-11-11 22:00:27 | main                      | INFO     | ============================================================
+2026-11-11 22:00:27 | core.system_managers      | INFO     | Background task completed: heavy_systems (7619.75ms)
+2026-11-11 22:00:27 | agent.debugger            | INFO     | debugger agent initialized.
+2026-11-11 22:00:27 | core.system_managers      | INFO     | Background initialization completed: 1 succeeded, 0 failed
+2026-11-11 22:00:40 | agent.chat_and_agents     | INFO     | Updated current provider to llama_cpp for model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m
+2026-11-11 22:00:40 | agent.chat_and_agents     | INFO     | Created session e6ac8571 with model llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m
+2026-11-11 22:00:40 | agent.chat_and_agents     | INFO     | _generate_response_sync: model='llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m'
+2026-11-11 22:00:40 | agent.chat_and_agents     | INFO     | Resolved provider 'llama_cpp' from model ID prefix
+2026-11-11 22:00:40 | agent.chat_and_agents     | INFO     | Sent message to llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m in session e6ac8571
+2026-11-11 22:00:40 | agent.chat_and_agents     | INFO     | Streaming from provider='llama_cpp' model='qwen2.5-coder-7b-instruct-q4_k_m'
+2026-11-11 22:00:48 | agent.chat_and_agents     | INFO     | Response complete: 256 chars from 'qwen2.5-coder-7b-instruct-q4_k_m'
+2026-11-11 22:00:48 | core.workspace_and_editor | INFO     | [WorkspaceManager._handle_refresh_request] Received refresh request...
+2026-11-11 22:02:36 | core.workspace_and_editor | INFO     | [EditorManager._handle_save_file] Received data: {'editor': <ui.code_editor_suite.CodeEditor(0x1fa91a56270) at 0x000001FA8F4398C0>, 'path': 'C:\\Users\\bisht\\Desktop\\owncode version\\OwnCode_v4_6_Live_Agent_Process_IDE\\OwnCode\\workspace\\stack.py'}
+2026-11-11 22:02:36 | core.workspace_and_editor | INFO     | [EditorManager._handle_save_file] Calling _write_file for: C:\Users\bisht\Desktop\owncode version\OwnCode_v4_6_Live_Agent_Process_IDE\OwnCode\workspace\stack.py
+2026-11-11 22:02:36 | core.workspace_and_editor | INFO     | [EditorManager._write_file] Starting for path: C:\Users\bisht\Desktop\owncode version\OwnCode_v4_6_Live_Agent_Process_IDE\OwnCode\workspace\stack.py
+2026-11-11 22:02:37 | core.system_managers      | INFO     | Safely wrote file: C:\Users\bisht\Desktop\owncode version\OwnCode_v4_6_Live_Agent_Process_IDE\OwnCode\workspace\stack.py
+2026-11-11 22:02:37 | core.workspace_and_editor | INFO     | [EditorManager._handle_editor_saved] Received data: {'path': 'C:\\Users\\bisht\\Desktop\\owncode version\\OwnCode_v4_6_Live_Agent_Process_IDE\\OwnCode\\workspace\\stack.py'}
+2026-11-11 22:02:37 | core.workspace_and_editor | INFO     | File saved: C:\Users\bisht\Desktop\owncode version\OwnCode_v4_6_Live_Agent_Process_IDE\OwnCode\workspace\stack.py
+2026-11-11 22:02:38 | agent.models.model_catalog_and_router | INFO     | ✓ Model preloaded: qwen2.5-coder-7b-instruct-q4_k_m
+2026-11-11 22:02:45 | agent.chat_and_agents     | INFO     | _generate_response_sync: model='llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m'
+2026-11-11 22:02:45 | agent.chat_and_agents     | INFO     | Resolved provider 'llama_cpp' from model ID prefix
+2026-11-11 22:02:45 | agent.chat_and_agents     | INFO     | Streaming from provider='llama_cpp' model='qwen2.5-coder-7b-instruct-q4_k_m'
+2026-11-11 22:02:45 | agent.chat_and_agents     | INFO     | Sent message to llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m in session e6ac8571
+2026-11-11 22:02:54 | core.workspace_and_editor | INFO     | [EditorManager._on_file_changed_externally] File changed: C:\Users\bisht\Desktop\owncode version\OwnCode_v4_6_Live_Agent_Process_IDE\OwnCode\workspace\stack.py
+2026-11-11 22:02:54 | agent.chat_and_agents     | INFO     | Response complete: 256 chars from 'qwen2.5-coder-7b-instruct-q4_k_m'
+2026-11-11 22:02:54 | core.workspace_and_editor | INFO     | [WorkspaceManager._handle_refresh_request] Received refresh request...
+2026-11-11 22:03:04 | tools.runner_and_tester   | INFO     | Executing: C:\Python314\python.exe -u C:\Users\bisht\Desktop\owncode version\OwnCode_v4_6_Live_Agent_Process_IDE\OwnCode\workspace\stack.py in C:\Users\bisht\Desktop\owncode version\OwnCode_v4_6_Live_Agent_Process_IDE\OwnCode\workspace
+2026-11-11 22:03:11 | tools.runner_and_tester   | INFO     | Executing: C:\Python314\python.exe -u C:\Users\bisht\Desktop\owncode version\OwnCode_v4_6_Live_Agent_Process_IDE\OwnCode\workspace\stack.py in C:\Users\bisht\Desktop\owncode version\OwnCode_v4_6_Live_Agent_Process_IDE\OwnCode\workspace
+2026-11-11 22:03:27 | tools.runner_and_tester   | INFO     | Executing: C:\Python314\python.exe -u C:\Users\bisht\Desktop\owncode version\OwnCode_v4_6_Live_Agent_Process_IDE\OwnCode\workspace\stack.py in C:\Users\bisht\Desktop\owncode version\OwnCode_v4_6_Live_Agent_Process_IDE\OwnCode\workspace
+2026-11-11 22:03:50 | agent.chat_and_agents     | INFO     | _generate_response_sync: model='llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m'
+2026-11-11 22:03:50 | agent.chat_and_agents     | INFO     | Resolved provider 'llama_cpp' from model ID prefix
+2026-11-11 22:03:50 | agent.chat_and_agents     | INFO     | Streaming from provider='llama_cpp' model='qwen2.5-coder-7b-instruct-q4_k_m'
+2026-11-11 22:03:50 | agent.chat_and_agents     | INFO     | Sent message to llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m in session e6ac8571
+2026-11-11 22:03:58 | core.workspace_and_editor | INFO     | [EditorManager._on_file_changed_externally] File changed: C:\Users\bisht\Desktop\owncode version\OwnCode_v4_6_Live_Agent_Process_IDE\OwnCode\workspace\stack.py
+2026-11-11 22:03:58 | agent.chat_and_agents     | INFO     | Response complete: 256 chars from 'qwen2.5-coder-7b-instruct-q4_k_m'
+2026-11-11 22:03:58 | core.workspace_and_editor | INFO     | [WorkspaceManager._handle_refresh_request] Received refresh request...
+2026-11-11 22:04:16 | agent.chat_and_agents     | INFO     | _generate_response_sync: model='llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m'
+2026-11-11 22:04:16 | agent.chat_and_agents     | INFO     | Resolved provider 'llama_cpp' from model ID prefix
+2026-11-11 22:04:16 | agent.chat_and_agents     | INFO     | Sent message to llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m in session e6ac8571
+2026-11-11 22:04:16 | agent.chat_and_agents     | INFO     | Streaming from provider='llama_cpp' model='qwen2.5-coder-7b-instruct-q4_k_m'
+2026-11-11 22:04:25 | core.workspace_and_editor | INFO     | [EditorManager._on_file_changed_externally] File changed: C:\Users\bisht\Desktop\owncode version\OwnCode_v4_6_Live_Agent_Process_IDE\OwnCode\workspace\stack.py
+2026-11-11 22:04:25 | agent.chat_and_agents     | INFO     | Response complete: 256 chars from 'qwen2.5-coder-7b-instruct-q4_k_m'
+2026-11-11 22:04:25 | core.workspace_and_editor | INFO     | [WorkspaceManager._handle_refresh_request] Received refresh request...
+2026-11-11 22:08:23 | main                      | INFO     | Shutting down...
+2026-11-11 22:08:23 | agent.models.model_catalog_and_router | INFO     | Keep-alive stopped
+2026-11-11 22:08:27 | main                      | INFO     | llama-server: process stopped on exit
+2026-11-11 22:08:27 | core.system_managers      | INFO     | Performance watchdog stopped
+2026-11-11 22:08:27 | core.system_managers      | INFO     | Cleaning up all resources...
+2026-11-11 22:08:27 | core.system_managers      | INFO     | Resource cleanup complete: 0 resources released
+2026-11-11 22:08:27 | core.workspace_and_editor | INFO     | [WorkspaceManager.save_session] Saving session...
+2026-11-11 22:08:27 | core.workspace_and_editor | INFO     | [WorkspaceManager.save_session] Session saved successfully!
+2026-11-11 22:08:27 | main                      | INFO     | Shutdown complete

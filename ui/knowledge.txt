@@ -1,0 +1,333 @@
+================================================================================
+OWNCODE KNOWLEDGE GUIDE — ui/ (Graphical User Interface, Editor, Dock & Panels)
+================================================================================
+
+1. PURPOSE OF THIS FOLDER
+-------------------------
+The `ui/` folder contains every visual component of OwnCode IDE, consolidated
+into 8 cohesive modules:
+  • `main_window.py`        : Top-level `MainWindow` orchestrator & `InlineAIController`
+  • `shell_and_chrome.py`   : `TitleBar`, `ActivityBar`, `StatusBar`, `ToolBar`,
+                              and non-blocking `NotificationCenter` (`_Toast`)
+  • `widgets_and_icons.py`  : Shared UI atoms (`IconButton`, `TextButton`, `Card`,
+                              `Divider`, `SectionHeader`, `Pill`, `ensure_tooltips`,
+                              `restyle_atoms`), vector `icon()` renderer, `DiffView`,
+                              and native file dialogs
+  • `dialogs_and_palette.py`: Theme-aware `CommandPalette` (File Search `Ctrl+P` &
+                              Commands `>`), `SettingsDialog`, `ThemeGallery`,
+                              `ChangeReviewDialog`, and `ToolConfirmationDialog`
+  • `code_editor_suite.py`  : `CenterPanel`, `Dashboard`, `EditorTabs`, `CodeEditor`,
+                              `Breadcrumb`, `BracketMatcher`, `CompletionPopup`,
+                              `SyntaxHighlighter`, and `TreeSitterHighlighter`
+  • `sidebar_panels.py`     : Left `Sidebar` and all 7 panels (`Explorer`,
+                              `SearchPanel`, `GitPanel`, `RunPanel`, `TestPanel`,
+                              `TasksPanel`, and `MemoryPanel`)
+  • `bottom_dock.py`        : `BottomDock` with interactive `TerminalView`,
+                              interactive `OutputView`, and the `Smart Problem Finder`
+                              (`ProblemsPanel`)
+  • `ai_workspace.py`       : Right-hand `AIWorkspace` (`Chat`, `Edit`, `Agent` modes,
+                              streaming markdown bubbles, model selector, context)
+
+2. LIBRARIES USED IN `ui/`
+--------------------------
+  • PySide6.QtWidgets : `QMainWindow`, `QFrame`, `QWidget`, `QSplitter`, `QTabWidget`,
+                        `QPlainTextEdit`, `QTreeView`, `QListWidget`, `QLineEdit`,
+                        `QPushButton`, `QToolButton`, `QComboBox`, `QSpinBox`, `QDialog`.
+  • PySide6.QtCore    : `Qt`, `Signal`, `QTimer`, `QThread`, `QSize`, `QRect`, `QUrl`.
+  • PySide6.QtGui     : `QPainter`, `QColor`, `QFont`, `QFontMetrics`, `QSyntaxHighlighter`,
+                        `QTextCursor`, `QKeySequence`, `QShortcut`, `QIcon`, `QPixmap`.
+  • ast / re / os     : Instant syntax checking in `ProblemsPanel.scan_code()` and
+                        workspace file search in `SearchPanel`.
+
+3. MODULES, CLASSES & FUNCTIONS IN `ui/`
+----------------------------------------
+
+[1] ui/main_window.py
+    Role: Builds the 3-way horizontal splitter (`Sidebar` | `CenterPanel + BottomDock`
+          | `AIWorkspace`), wires all signals and keyboard shortcuts (`F5`, `F6`,
+          `Ctrl+P`, `Ctrl+Shift+P`, `Ctrl+B`, `Ctrl+\``), persists theme changes,
+          and coordinates `refresh_theme()` across all widgets and popups.
+    Classes:
+      • _DiffDialog — Shows a unified diff of the proposed rewrite with Apply / Cancel.
+        Key Methods: __init__
+      • InlineAIController — Coordinates a single Ctrl+K inline edit from trigger to applied diff.
+        Key Methods: __init__, trigger
+      • MainWindow
+        Key Methods: __init__, set_theme_manager, set_lsp_manager, set_project_analyzer, set_workspace_manager, set_chat_engine, set_provider_manager, set_ai_integration, set_llm_optimizer, open_folder, open_command_palette, toggle_sidebar
+
+[2] ui/shell_and_chrome.py
+    Role: Combines `TitleBar` (menu, workspace title, sidebar toggle, search bar,
+          `▶ Run`, `🧪 Test`, `■ Stop`, theme selector), `ActivityBar` (left icon
+          rail with 1-click collapse/expand and 1px vertical separator), `StatusBar`
+          (status message, git branch, language, LSP status, cursor line/col, UTF-8),
+          `ToolBar`, and `NotificationCenter` (non-blocking bottom-right toast cards).
+    Classes:
+      • TitleBar
+        Key Methods: __init__, set_workspace_name, set_sidebar_visible, set_running, set_active_theme, refresh_theme
+      • _RailButton — A full-width rail destination: icon over a small caption, checkable.
+        Key Methods: __init__, refresh_icon
+      • ActivityBar
+        Key Methods: __init__, set_active, set_sidebar_visible, current_view, refresh_theme
+      • _Segment
+        Key Methods: __init__
+      • _ClickableSegment — A status segment that behaves like a button (pointer cursor + click).
+        Key Methods: __init__, mousePressEvent
+      • StatusBar — Bottom status strip with a main message region and right-side segments.
+        Key Methods: __init__, showMessage, set_persistent, set_git_branch, set_language, set_lsp_status, set_cursor, set_encoding, refresh_theme
+      • ToolBar
+        Key Methods: __init__, set_running, set_breadcrumb, refresh_theme
+      • _Toast — Single compact, non-clipping notification card.
+        Key Methods: __init__, message, tone, set_content, mousePressEvent
+      • NotificationCenter — Compact, non-blocking toast stack anchored above the status bar.
+        Key Methods: __init__, notify, clear_all, resize_to_parent, refresh_theme
+
+[3] ui/widgets_and_icons.py
+    Role: Combines QPainter vector icons (`icon()`), reusable control atoms
+          (`IconButton`, `TextButton`, `Card`, `Divider`, `SectionHeader`, `Pill`),
+          automatic hover tooltip assignment (`ensure_tooltips`, `restyle_atoms`),
+          side-by-side/unified `DiffView`, and `native_dialogs`.
+    Classes:
+      • IconButton — A flat, square icon button with a consistent hover fill and guaranteed tooltip.
+        Key Methods: __init__, refresh_icon, set_icon_name, refresh_theme
+      • TextButton — A labelled button with an optional leading icon, design-system variant, and automatic tooltip.
+        Key Methods: __init__, setText, refresh_icon, refresh_theme
+      • Card — A raised, rounded container. Use .body layout to add children.
+        Key Methods: __init__
+      • Divider
+        Key Methods: __init__
+      • SectionHeader — A small uppercase section title with an optional trailing action row and subtle bottom border.
+        Key Methods: __init__, add_action, set_title, refresh_theme
+      • Pill — A small rounded status chip.
+        Key Methods: __init__, setText, set_tone, refresh_theme
+      • DiffView — A read-only side-by-side diff viewer.
+        Key Methods: __init__, set_texts, set_unified, clear, refresh_theme
+    Functions:
+      • _pen(painter, color, width)
+      • _files(p, c)
+      • _search(p, c)
+      • _git(p, c)
+      • _debug(p, c)
+      • _flask(p, c) — Lab flask / beaker icon for Program & Terminal Tests.
+      • _extensions(p, c)
+      • _memory(p, c)
+      • _tasks(p, c)
+      • _settings(p, c)
+      • _run(p, c)
+      • _stop(p, c)
+      • _chat(p, c)
+      • _model(p, c)
+      • _close(p, c)
+      • _minimize(p, c)
+      • _maximize(p, c)
+      • _restore(p, c)
+      • _chevron_down(p, c)
+      • _chevron_right(p, c)
+      • _chevron_left(p, c) — Double left chevron («) for collapsing the left sidebar.
+      • _folder_collapse(p, c) — Collapse-all folders icon (upward chevron inside a folder).
+      • _plus(p, c)
+      • _folder(p, c)
+      • _file(p, c)
+      • _terminal(p, c)
+      • _ai(p, c)
+      • _menu(p, c)
+      • _bell(p, c)
+      • _more(p, c)
+      • _split(p, c)
+      • _refresh(p, c)
+      • _collapse(p, c)
+      • _palette(p, c)
+      • _keyboard(p, c)
+      • _plug(p, c)
+      • _wrench(p, c)
+      • _code(p, c)
+      • _type(p, c)
+      • _play(p, c)
+      • _square(p, c)
+      • _star(p, c)
+      • _edit(p, c)
+      • _trash(p, c)
+      • _check(p, c)
+      • _copy(p, c)
+      • _history(p, c)
+      • _paperclip(p, c)
+      • icon(name, size, color) — Return a QIcon for `name`, drawn in `color` (defaults to text_secondary).
+      • available_icons()
+      • _humanize_identifier(raw) — Turn an objectName or icon key like 'TerminalKillBtn' into 'Terminal Kill'.
+      • ensure_tooltips(root) — Guarantee that every button, tab, input field, combo box, and spinbox under
+      • restyle_atoms(root) — Repaint every palette-baked atom under `root` after a theme change and ensure tooltips.
+      • apply_shadow(widget, blur, y, alpha)
+      • hline()
+      • vline()
+      • build_rows(old_text, new_text) — Align two texts into side-by-side rows using difflib.
+      • select_existing_directory(parent, title, start_dir) — Return an absolute directory path, or "" if the user cancelled.
+      • select_existing_file(parent, title, start_dir) — Return an absolute file path, or "" if the user cancelled.
+      • select_save_file(parent, title, start_dir, suggested_name) — Ask where to *write* a file. Returns an absolute path, or "" if cancelled.
+      • _linux_save(title, initial) — Native save-as picker. Path, "" on cancel, or None if unrunnable.
+      • _linux_native(title, start_dir, directory) — Try the desktop's own file/folder picker.
+      • _run_picker(cmd) — Run a native picker. Path on success, "" on cancel, None if unrunnable.
+      • _is_kde()
+
+[4] ui/dialogs_and_palette.py
+    Role: Combines `CommandPalette` (dynamically themed popup for `Files (Ctrl+P)`
+          and `Commands (> / Ctrl+Shift+P)`), `SettingsDialog` (multi-category
+          preferences & provider configuration), `ThemeGallery` (live theme cards),
+          `ChangeReviewDialog`, and `ToolConfirmationDialog`.
+    Classes:
+      • CommandPalette
+        Key Methods: __init__, set_commands, set_files, showEvent, open_palette, keyPressEvent, refresh_theme
+      • Field
+      • Group
+      • Page
+        Key Methods: cat
+      • FieldRow — Label + hint on the left, editor on the right.
+        Key Methods: __init__, value, set_value, set_enabled_state
+      • _PathEditor — Line edit plus a Browse… button that opens a directory picker.
+        Key Methods: __init__, value, set_value
+      • _ShortcutEditor — Captures a key sequence; value() returns a list of chord strings.
+        Key Methods: __init__, value, set_value
+      • _Preview — Miniature mock of an IDE window drawn in one palette's colours.
+        Key Methods: __init__, paintEvent
+      • ThemeCard — Selectable card: preview, name, one-line description.
+        Key Methods: __init__, isChecked, setChecked, mousePressEvent, enterEvent, leaveEvent
+      • ThemeGallery — Dark and light theme cards in a responsive grid.
+        Key Methods: __init__, set_current, refresh_theme
+      • SettingsDialog — Category list + stacked pages, driven by SettingsManager.
+        Key Methods: __init__, show_page, set_current_theme, refresh_theme
+      • ProviderCard — Enable toggle, base URL, API key and a live connection test.
+        Key Methods: __init__
+      • ChangeReviewDialog — Review + accept/reject a multi-file change set, then apply it.
+        Key Methods: __init__, refresh_theme
+      • ToolConfirmationDialog
+        Key Methods: __init__, reject
+    Functions:
+      • search_hits(page, needle) — True if a page mentions `needle` in its label, blurb or any field.
+
+[5] ui/code_editor_suite.py
+    Role: Combines `CenterPanel`, `Dashboard` (welcome screen & recent projects),
+          `EditorTabs`, `CodeEditor` (line numbers, current-line highlight,
+          auto-indent, inline ghost completions), `Breadcrumb` (path + symbol trail),
+          `BracketMatcher`, `CompletionPopup`, `SyntaxHighlighter`, and
+          `TreeSitterHighlighter`.
+    Classes:
+      • LanguageInfo — Metadata about a programming language.
+        Key Methods: __init__
+      • BracketMatcher — Matches and highlights bracket pairs.
+        Key Methods: __init__, refresh_theme, set_bracket_pairs, find_matching_bracket, highlight_matching_brackets, get_bracket_at_position, is_bracket_at_cursor
+      • SyntaxHighlighter — Advanced syntax highlighter with support for multiple languages.
+        Key Methods: __init__, refresh_theme, setup_formats, setup_rules, highlightBlock
+      • TreeSitterHighlighter — Parse-tree-driven highlighter for one document.
+        Key Methods: __init__, setup_formats, refresh_theme, highlightBlock
+      • CompletionPopup — A floating, keyboard-driven completion list.
+        Key Methods: __init__, set_items, move_selection, accept_current, refresh_theme
+      • SignatureTip — A floating one-line label showing the active call signature.
+        Key Methods: __init__, show_signature, refresh_theme
+      • Definition
+      • _Crumb — A single clickable segment (folder, file, or symbol).
+        Key Methods: __init__, mousePressEvent
+      • Breadcrumb — Path + symbol trail for the active editor.
+        Key Methods: __init__, set_context, set_symbols, clear, refresh_theme
+      • _Gutter
+        Key Methods: __init__, sizeHint, paintEvent
+      • CodeEditor
+        Key Methods: __init__, apply_editor_settings, refresh_theme, load_text, text, set_language, gutter_width, resizeEvent, paint_gutter, set_bracket_highlights, keyPressEvent, set_lsp_manager
+      • EditorTabs
+        Key Methods: __init__, open_file, force_close_tab, open_diff, current_editor, current_path, open_paths, next_untitled_name, set_lsp_manager, mark_saved, retarget, retarget_path
+      • _RecentItem
+        Key Methods: __init__, mousePressEvent
+      • Dashboard
+        Key Methods: __init__, set_recent_projects, set_project_analyzer, set_workspace_manager, set_provider_manager, refresh_theme
+      • CenterPanel
+        Key Methods: __init__, open_file, open_diff, show_dashboard, show_editor, set_workspace_root, set_breadcrumb, refresh_theme, apply_editor_settings
+    Functions:
+      • detect_language(file_path) — Detect language from file path.
+      • get_language_by_name(name) — Get language info by name.
+      • get_all_languages() — Get list of all supported languages.
+      • get_language_id_for_file(file_path) — Detect language ID from file path.
+      • _language_name(language_or_path) — Resolve the incoming language/path spec to a language display name.
+      • create_highlighter(document, language_or_path) — Return the best available highlighter for a document.
+      • language_name_for(path) — Display language name (e.g. ``"Python"``) for a path, or ``"plaintext"``.
+      • supports(language_name) — True when a tree-sitter grammar is available for this language.
+      • extract_definitions(text, language_name) — Return every function/class/etc. definition in ``text``, nesting included.
+      • enclosing_symbols(defs, row) — Definitions whose row range contains ``row``, outermost → innermost.
+      • _collect(node, out)
+      • _name_of(node) — Best-effort identifier for a definition node across grammars.
+      • _first_identifier(node, depth) — Shallow depth-first hunt for the first identifier-like descendant.
+      • _text(node)
+      • _editor_setting(category, key, fallback)
+      • _current_line_color() — A current-line wash that works on light *and* dark palettes.
+
+[6] ui/sidebar_panels.py
+    Role: Combines `Sidebar` (automatically adds a `«` Hide Sidebar button to every
+          panel header) and the sidebar panels: `SearchPanel`, `GitPanel`,
+          `RunPanel`, `TestPanel`, `TasksPanel` (2-row non-clipping activity
+          cards), and `MemoryPanel` (while `Explorer` is in `tools/explorer_and_files.py`).
+    Classes:
+      • _RecentRow — A compact, clickable recent-project row for the Explorer empty state.
+        Key Methods: __init__, mousePressEvent
+      • Explorer
+        Key Methods: __init__, has_tree_focus, rename_selected, apply_workspace_settings, set_recent_projects, set_root, reveal, refresh_theme
+      • _SearchWorker — Runs one full-text search off the UI thread.
+        Key Methods: __init__, cancel, run
+      • SearchPanel
+        Key Methods: __init__, set_root, refresh_theme
+      • _Worker — Runs one callable off the UI thread and delivers its result.
+        Key Methods: __init__, run
+      • GitPanel
+        Key Methods: __init__, set_root, showEvent, refresh, push, pull, eventFilter, refresh_theme
+      • RunPanel
+        Key Methods: __init__, set_root, set_current_file, refresh_theme
+      • TestPanel — Left sidebar panel for customizable & automated program and terminal testing.
+        Key Methods: __init__, set_root, set_code_provider, set_current_file, refresh_detection, build_custom_config, generate_preview_sample, set_running, refresh_theme
+      • _TaskRow — Two-row task activity card: [Status Pill + Timestamp] on top, full title below.
+        Key Methods: __init__, set_title, set_status, preferred_size, refresh_theme
+      • TasksPanel
+        Key Methods: __init__, refresh_theme
+      • _FactRow — A single remembered fact with pin / edit / forget controls.
+        Key Methods: __init__
+      • MemoryPanel
+        Key Methods: __init__, set_project, reload, refresh_theme
+      • PlaceholderView — A tidy placeholder for views still being wired up.
+        Key Methods: __init__
+      • Sidebar
+        Key Methods: __init__, add_view, set_view, set_root, refresh_theme
+    Functions:
+      • _compact_spin(min_v, max_v, val, tip) — Create a clean, compact spinbox without oversized native arrow buttons.
+
+[7] ui/bottom_dock.py
+    Role: Combines `BottomDock` (with top-right `■ Kill`, `↻ Reset / Restore`,
+          `Clear`, and `×` buttons), `TerminalView` (interactive shell + live
+          `▶ Run` execution with `● stdin ›` input and `↵ Send`), `OutputView`
+          (test & program output with its own interactive `stdin ›` input bar),
+          and `ProblemsPanel` (Smart Problem Finder with minimal-word problem
+          summaries, 1-line smart fixes, and `🔍 Check Active Code`).
+    Classes:
+      • _Console
+        Key Methods: __init__, append_text, refresh_theme, apply_terminal_settings
+      • OutputView — Enhanced Output tab with a console display plus an interactive `stdin ›`
+        Key Methods: __init__, set_program_running, append_text, clear, toPlainText, setPlainText, moveCursor, insertPlainText, refresh_theme, apply_terminal_settings
+      • TerminalView — Persistent integrated terminal supporting both interactive shell commands
+        Key Methods: __init__, set_cwd, focus_input, clear_console, start_program_session, append_program_output, finish_program_session, kill_active, reset_session, run_self_test, closeEvent, refresh_theme
+      • ProblemsPanel — Smart Problem Finder — analyzes LSP diagnostics, compiler errors, and
+        Key Methods: __init__, scan_code, mark_run_succeeded, set_diagnostics, add_terminal_output, clear_terminal, total_count, refresh_theme
+      • BottomDock
+        Key Methods: __init__, clear_active_tab, clear_output, start_program_run, append_run_output, append_output, run_finished, set_diagnostics, clear_terminal_problems, show_terminal, show_output, show_problems
+    Functions:
+      • _mono_font(size, family) — Monospace font honouring the terminal settings, with a safe fallback.
+      • _terminal_colors() — Terminal surface/text/prompt derived from the active palette.
+
+[8] ui/ai_workspace.py
+    Role: Provides the `AIWorkspace` panel with `Chat`, `Edit`, and `Agent` modes,
+          collapsible provider/model picker, context attachment drawer, chat
+          history drawer, and streaming markdown/code message bubbles.
+    Classes:
+      • _CodeBlockWidget — Dedicated code card in chat with language badge and direct Copy Code button.
+        Key Methods: __init__, _copy_code, _reset_copy_btn, _apply_style, refresh_theme
+      • _Bubble — Message bubble with separate prose blocks and embedded _CodeBlockWidget instances.
+        Key Methods: __init__, append, text, finalize, set_footer, _copy, refresh_theme
+      • _ModeSwitch — A compact Chat / Edit / Agent segmented control.
+        Key Methods: __init__, set_mode, refresh_theme
+      • AIWorkspace
+        Key Methods: __init__, set_chat_engine, set_providers, eventFilter, refresh_theme
+    Functions:
+      • _render_markdown(text) — Very small markdown→HTML pass: fenced code, inline code, bold, newlines.
+================================================================================
