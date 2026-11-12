@@ -1,0 +1,231 @@
+================================================================================
+OWNCODE KNOWLEDGE GUIDE — tools/ (Explorer, Terminal, Runner, Tester, Theme & Git)
+================================================================================
+
+1. PURPOSE OF THIS FOLDER
+-------------------------
+The `tools/` folder houses all IDE tool engines, File Explorer & workspace
+scanning operations, terminal execution, automated testing, theming, and
+Git/GitHub integrations:
+  • File Explorer, Workspace Scanner & Filesystem Tools (`explorer_and_files.py`):
+    - `Explorer` & `_ExcludeProxy`: Lazy-mounted `QFileSystemModel` workspace
+      tree view, context menus (New File, New Folder, Rename, Duplicate, Delete,
+      Copy Path, Reveal in File Manager), collapse-all action, and recent
+      workspace cards.
+    - `ProjectScanner`, `TreeBuilder`, `LanguageDetector`, `FrameworkDetector`,
+      `DependencyAnalyzer`: Scans workspace folder hierarchies, builds directory
+      trees, and detects project languages, frameworks, and dependencies.
+    - `FileOperations`: Creates, renames, duplicates, deletes, and reveals
+      files/folders safely on disk.
+    - `FileWatcher`: Monitors open workspace directories and files for external
+      changes.
+    - `DeleteGuard`: Protects project roots and system paths from accidental
+      deletion.
+  • Silent Subprocess & Terminal Engine (`terminal_engine.py`):
+    - Prevents external console windows from ever flashing on Windows
+      (`CREATE_NO_WINDOW` + `SW_HIDE`, stripping `DETACHED_PROCESS` and
+      `CREATE_NEW_CONSOLE`) and provides `HiddenProcess` (a drop-in `QObject`
+      replacement for `QProcess`).
+  • Code Runner & Smart Program Tester (`runner_and_tester.py`):
+    - Executes code in 12+ languages (`RunManager`) with live interactive
+      `stdin` streaming to the Terminal tab, and automatically analyzes programs
+      (`analyze_program`), generates randomized test inputs
+      (`generate_test_inputs`), runs multi-step menu/array/record tests
+      (`run_program_test`), and diagnoses errors with 1-line quick fixes
+      (`diagnose_error`).
+  • Theme, Design System & Settings (`theme_and_settings.py`):
+    - Defines all 13 color palettes (`Graphite`, `Slate`, `Matte`, `Clay`,
+      `Mocha`, `Midnight`, `Nord`, `Forest`, `Rosé`, `High Contrast`, `Paper`,
+      `Dune`, `Mist`), typography/spacing tokens, global QSS generation,
+      `ThemeManager`, and persistent JSON `SettingsManager`.
+  • Git & GitHub Integration (`git_and_github.py`):
+    - Wraps `git` and `gh` CLI commands silently (`GitService` and
+      `GitHubService`) for status, staging, commits, branches, push/pull,
+      cloning, and GitHub browser authentication.
+
+2. LIBRARIES USED IN `tools/`
+-----------------------------
+  • PySide6 (QtWidgets, QtCore, QtGui) : `QTreeView`, `QFileSystemModel`,
+                                         `QSortFilterProxyModel`, `QMenu`,
+                                         `QPalette`, `QColor`, and signals.
+  • subprocess / os / sys / shutil     : Hidden process spawning, file/folder
+                                         operations, and toolchain detection.
+  • threading / queue / time           : Asynchronous stdout/stderr reader threads
+                                         in `HiddenProcess` and background workers.
+  • re / ast / random / tempfile       : Static code analysis of input prompts/loops
+                                         and randomized test input generation.
+  • json / copy / pathlib              : Settings persistence (`config/settings.json`)
+                                         and workspace path resolution.
+
+3. MODULES, CLASSES & FUNCTIONS IN `tools/`
+-------------------------------------------
+
+[1] tools/explorer_and_files.py
+    Role: Combines the IDE's File Explorer (`Explorer`, `_ExcludeProxy`),
+          workspace tree & metadata scanners (`ProjectScanner`, `TreeBuilder`,
+          `LanguageDetector`, `FrameworkDetector`, `DependencyAnalyzer`), and
+          filesystem tools (`FileOperations`, `FileWatcher`, `DeleteGuard`).
+    Classes:
+      • DeleteGuard
+        Key Methods: __init__
+      • FileOperations — Safe file and folder operations with user confirmation.
+        Key Methods: __init__, create_file, create_folder, rename, delete, move, copy, duplicate, reveal_in_explorer
+      • FileWatcher — Watches files and directories for changes.
+        Key Methods: __init__, watch_directory, watch_file, unwatch_file, unwatch_directory, clear_all
+      • TreeBuildError — Raised when the tree cannot be built from the given root path.
+      • TreeNode — Represents a single file or directory in the project tree.
+        Key Methods: walk, files, directories, find_by_name, depth, relative_path
+      • TreeBuilder — Builds a TreeNode tree from a workspace root directory.
+        Key Methods: __init__, build, find, total_files, total_dirs, total_size_bytes, render_ascii
+      • LanguageStats — Statistics for a single programming language.
+      • LanguageBreakdown — Full language composition of a project.
+        Key Methods: get, code_languages
+      • LanguageDetector — Determines the programming language composition of a project.
+        Key Methods: __init__, detect, detect_from_path
+      • FrameworkDetectionError — Raised when framework detection cannot run due to an I/O or parse error.
+      • Framework — All frameworks the detector can identify.
+      • FrameworkResult — The outcome of a single framework detection pass.
+      • _DetectionRule
+      • FrameworkDetector — Detects the dominant framework of a software project.
+        Key Methods: __init__, detect
+      • DependencyAnalysisError — Raised when a dependency file is malformed or cannot be parsed.
+      • Dependency — A single library or package dependency.
+      • DependencyInfo — Complete dependency picture for a project.
+        Key Methods: all_dependencies, dependency_names
+      • DependencyAnalyzer — Reads and parses project dependency manifests into DependencyInfo objects.
+        Key Methods: __init__, analyze
+      • ProjectScanError — Raised when the project scan fails critically and cannot complete.
+      • ProjectScanner — Orchestrates all workspace analysis tools and produces a ProjectContext.
+        Key Methods: __init__, scan
+      • _RecentRow — A compact, clickable recent-project row for the Explorer empty state.
+        Key Methods: __init__, mousePressEvent
+      • Explorer
+        Key Methods: __init__, has_tree_focus, rename_selected, apply_workspace_settings, set_recent_projects, set_root, reveal, refresh_theme
+
+[2] tools/terminal_engine.py
+    Role: Combines `process_utils.py` (`HiddenProcess`, `hidden_subprocess_kwargs`,
+          `install_hidden_subprocess_hooks`, `run_hidden_command`,
+          `run_terminal_self_test`) with AI terminal execution managers
+          (`AITerminalManager`, `AITerminalExecution`, `TerminalOutputAnalyzer`,
+          `TerminalHistoryStorage`, `TerminalApprovalPanel`).
+    Classes:
+      • _ByteBuffer — QByteArray-compatible byte wrapper returned by HiddenProcess.readAll*.
+        Key Methods: __init__, data
+      • _ProcessEnv — QProcessEnvironment-compatible dictionary.
+        Key Methods: insert
+      • HiddenProcess — Drop-in QProcess replacement backed by `subprocess.Popen` with hidden
+        Key Methods: __init__, setWorkingDirectory, workingDirectory, setProcessChannelMode, processEnvironment, setProcessEnvironment, setCreateProcessArgumentsModifier, program, state, processId, start, write
+      • AICommandHistoryEntry — Represents a single AI terminal command execution.
+        Key Methods: to_dict, from_dict
+      • TerminalHistoryStorage — Manages AI terminal command history with persistent storage.
+        Key Methods: __init__, add_entry, get_entry, get_entries, get_recent_commands, get_completed_commands, get_failed_commands, get_stats, clear_history, export_to_json, export_to_csv
+      • ErrorLocation — Location of an error in source code.
+      • Diagnostic — Diagnostic information about an error or warning.
+      • AnalysisResult — Result of terminal output analysis.
+      • TerminalOutputAnalyzer — Analyzes terminal output to identify issues and provide suggestions.
+        Key Methods: __init__, analyze
+      • TerminalApprovalPanel — Approval panel for terminal command execution.
+        Key Methods: __init__, set_request, show_approval
+      • TerminalExecutionRequest — Request from AI to execute a terminal command.
+      • TerminalCommandHistoryRecord — Record of a terminal command executed by AI.
+      • AITerminalManager — Manages AI terminal execution with safety, approval, and analysis.
+        Key Methods: __init__, create_execution_request, approve_execution, cancel_execution, get_execution_history, get_execution_by_id, get_all_executions, get_active_execution, run_again, copy_command, open_terminal, open_output
+      • AITerminalExecution — Handles AI terminal execution requests through the terminal executor.
+        Key Methods: __init__, cancel_execution
+    Functions:
+      • _sanitize_windows_flags(flags) — Ensure `CREATE_NO_WINDOW` is set and strip `DETACHED_PROCESS` / `CREATE_NEW_CONSOLE`.
+      • hidden_subprocess_kwargs() — Return kwargs for subprocess.run / Popen that hide console windows on Windows.
+      • install_hidden_subprocess_hooks() — Hook `subprocess.Popen.__init__` on Windows so every child process launched
+      • _hide_qprocess_windows_console(arguments) — Modifier callback for QProcess.setCreateProcessArgumentsModifier (when bound).
+      • configure_qprocess_no_window(proc) — Configure a QProcess or HiddenProcess so child processes do not flash console windows.
+      • safe_delete_qprocess(proc) — Safely schedule a QProcess / HiddenProcess for deletion without Shiboken RuntimeError.
+      • run_hidden_command(command, cwd, input_text, timeout, env) — Run a command synchronously with hidden console window and return:
+      • run_terminal_self_test(cwd, configured_shell) — Run an in-app diagnostic test on the integrated terminal & execution pipeline.
+
+[3] tools/runner_and_tester.py
+    Role: Combines `RunManager` (multi-language file/project runner with unbuffered
+          `python -u` interactive `stdin_input` support) and `program_tester.py`
+          (Smart Program & Algorithm Tester).
+    Classes:
+      • RunConfiguration — Represents a run configuration for a file or project.
+        Key Methods: __init__
+      • RunManager — Manages project and file execution, live interactive stdin/stdout in the
+        Key Methods: __init__, is_running, write_stdin, run_file, test_file, test_terminal, run_project, detect_file_run_config, detect_project_run_config, execute, stop_process
+      • MenuOptionSpec — Represents a single option in a menu-driven program.
+      • ProgramInputProfile — Detected input profile for a source file.
+      • GeneratedTestCase — A generated set of dummy inputs for one test execution.
+      • ProgramTestResult — Outcome of running a program test (single or multi-scenario).
+    Functions:
+      • python_command(working_dir) — The interpreter to run user Python with.
+      • interactive_python_command(working_dir) — Return the standard `python` executable for piped interactive execution
+      • detect_language_from_path_or_code(file_path, code)
+      • _strip_comments(code, language) — Remove single-line and block comments so commented-out inputs are ignored.
+      • infer_field_type(hint, cast_type) — Infer semantic field type from a prompt string or variable name.
+      • generate_random_value(field_type, min_val, max_val, index) — Generate a single realistic random value for the given semantic field type.
+      • _has_any_input_call(cleaned, language)
+      • _classify_menu_label(label)
+      • _extract_branch_extra_inputs(cleaned, choice_str, role) — Inspect the if/elif/case block for `choice_str` to see how many extra
+      • _detect_menu_loop(cleaned) — Detect if the code is an interactive menu loop (e.g., Stack, Queue, Linked List, CRUD).
+      • analyze_program(code, file_path) — Statically analyze source code to determine what inputs it needs, how many,
+      • generate_test_inputs(profile, custom_config) — Generate a fresh, randomized test case for the given ProgramInputProfile
+      • diagnose_error(stdout, stderr, exit_code, timed_out, language) — Produce a concise 1-2 line issue description and a 1-line quick fix.
+      • _build_execution_plan(file_path, language, build_dir) — Return (compile_cmd_or_None, run_cmd) for executing `file_path` in `language`.
+      • run_program_test(file_path, code, custom_config, timeout) — Analyze, generate randomized dummy inputs, compile (if needed), and run the
+      • _clean_stdout_for_report(raw_stdout, profile) — Clean piped stdout for display in the test report:
+      • _format_test_report() — Format a clean, scannable, concise test report for the Output / Tests panel.
+
+[4] tools/theme_and_settings.py
+    Role: Combines `SettingsManager` (`config/settings.json` persistence),
+          `DesignSystem` (13 `ColorPalette` definitions, geometry/font tokens,
+          and global QSS generator), and `ThemeManager` (live palette switching).
+    Classes:
+      • SettingsManager — Manages application settings with persistence.
+        Key Methods: __init__, get, set, get_all, set_all, reset_to_defaults, reset_category, get_default, categories, get_theme, get_font_family, get_font_size
+      • ColorPalette
+        Key Methods: as_dict
+      • ThemeInfo — Presentation metadata for the settings theme gallery.
+      • Spacing
+      • Radius
+      • FontFamily
+      • FontSize
+      • FontWeight
+      • LineHeight
+      • Duration
+      • Easing
+      • Titlebar
+      • Toolbar
+      • ActivityBar
+      • Sidebar
+      • AIPanel
+      • StatusBar
+      • Terminal
+      • Editor
+      • DesignSystem — Holds the active palette and generates QSS for the app.
+        Key Methods: __init__, set_theme, theme, is_dark, color, get_stylesheet
+      • ThemeManager — Applies design-system palettes to the running QApplication.
+        Key Methods: __init__, apply_theme, toggle, available_themes, get_current_theme, is_dark, colors, apply_clay, apply_graphite, apply_slate, apply_onyx, apply_dark
+    Functions:
+      • get_settings_manager() — Get the global settings manager instance.
+      • reset_settings_manager() — Reset the global settings manager (for testing).
+      • _rgba(hex_color, alpha) — Convert '#rrggbb' + alpha into a QSS rgba() string.
+      • make_palette(name) — Build a full ColorPalette from its distinctive seeds.
+      • list_themes(group) — Theme metadata in display order, optionally filtered by group.
+      • get_design_system()
+      • set_design_system_theme(theme)
+      • reset_design_system()
+
+[5] tools/git_and_github.py
+    Role: Combines `GitService` and `GitHubService`.
+    Classes:
+      • GitFile — One entry from `git status --porcelain`.
+        Key Methods: staged, unstaged, untracked, label
+      • GitService
+        Key Methods: __init__, is_repo, current_branch, branches, status, diff, ahead_behind, stage, stage_all, unstage, discard, commit
+      • GitHubAccount
+      • GitHubService — Run safe, non-token GitHub account operations through ``gh``.
+        Key Methods: status, accounts, login, switch, open_browser_fallback, logout
+    Functions:
+      • parse_porcelain(text) — Parse `git status --porcelain=v1 -z`-style output.
+      • parse_auth_accounts(payload, host) — Parse all linked accounts without exposing tokens.
+      • parse_auth_status(payload, host) — Parse the active GitHub account from ``gh auth status`` JSON.
+================================================================================

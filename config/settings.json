@@ -1,0 +1,164 @@
+{
+  "general": {
+    "auto_save": false,
+    "auto_save_delay": 3000,
+    "restore_session": true,
+    "show_welcome": true,
+    "language": "en",
+    "theme": "matte"
+  },
+  "appearance": {
+    "font_family": "Inter, Segoe UI, SF Pro Display, system-ui, sans-serif",
+    "font_size": 10,
+    "font_ligatures": true,
+    "line_height": 1.5,
+    "letter_spacing": 0,
+    "word_wrap": true,
+    "minimap": true,
+    "scrollbar_size": 8
+  },
+  "editor": {
+    "tab_size": 4,
+    "insert_spaces": true,
+    "render_whitespace": "none",
+    "cursor_blinking": true,
+    "cursor_style": "line",
+    "word_based_suggestions": true,
+    "automatic_completions": true,
+    "format_on_type": true,
+    "format_on_save": false
+  },
+  "workspace": {
+    "single_click_open": true,
+    "preview_single_click": false,
+    "reveal_active_file": true,
+    "auto_scan": true,
+    "scan_delay": 1000,
+    "follow_symlinks": false,
+    "exclude_patterns": [
+      ".git",
+      "__pycache__",
+      "node_modules",
+      ".vscode",
+      ".idea"
+    ]
+  },
+  "models": {
+    "default_model": "llama_cpp:qwen2.5-coder-7b-instruct-q4_k_m",
+    "routing_policy": "automatic",
+    "banned_models": [
+      "deepseek"
+    ],
+    "models": {
+      "qwen3:8b": {
+        "name": "Qwen 3 8B",
+        "provider": "ollama",
+        "context_window": 32768,
+        "enabled": true
+      },
+      "qwen": {
+        "name": "Qwen 3 Coder Next",
+        "provider": "local",
+        "context_window": 32768,
+        "enabled": true
+      }
+    }
+  },
+  "ai": {
+    "auto_context": true,
+    "max_context_files": 10,
+    "context_window_size": 8192,
+    "max_tokens": 4096,
+    "temperature": 0.7,
+    "streaming": true,
+    "smart_suggestions": true,
+    "auto_verify": true,
+    "inline_ai_enabled": false,
+    "inline_completions_enabled": false
+  },
+  "git": {
+    "enabled": true,
+    "auto_refresh": true,
+    "refresh_interval": 5000,
+    "commit_on_save": false,
+    "push_on_close": false
+  },
+  "github": {
+    "enabled": false,
+    "token": "",
+    "username": "",
+    "default_branch": "main"
+  },
+  "keyboard": {
+    "shortcuts": {
+      "command_palette": [
+        "Ctrl+Shift+P"
+      ],
+      "new_file": [
+        "Ctrl+N"
+      ],
+      "open_folder": [
+        "Ctrl+K",
+        "Ctrl+O"
+      ],
+      "save": [
+        "Ctrl+S"
+      ],
+      "save_all": [
+        "Ctrl+Shift+S"
+      ],
+      "close": [
+        "Ctrl+W"
+      ],
+      "next_tab": [
+        "Ctrl+Tab"
+      ],
+      "prev_tab": [
+        "Ctrl+Shift+Tab"
+      ],
+      "run": [
+        "F5"
+      ],
+      "stop": [
+        "Shift+F5"
+      ],
+      "toggle_terminal": [
+        "Ctrl+`"
+      ],
+      "toggle_explorer": [
+        "Ctrl+B"
+      ],
+      "toggle_ai_panel": [
+        "Ctrl+\\"
+      ]
+    }
+  },
+  "window": {
+    "restore_layout": true,
+    "remember_position": true,
+    "remember_size": true,
+    "remember_maximized": true
+  },
+  "terminal": {
+    "font_family": "JetBrains Mono, Cascadia Code, Consolas",
+    "font_size": 11,
+    "cursor_shape": "block",
+    "cursor_blink": true,
+    "line_height": 1.5,
+    "scrollback_size": 10000,
+    "default_shell": "cmd",
+    "default_working_dir": "",
+    "copy_on_select": false,
+    "confirm_before_close": true,
+    "bell": false,
+    "smooth_scrolling": true,
+    "padding": 8
+  },
+  "theme": "dark",
+  "font_size": 12,
+  "auto_save": true,
+  "show_line_numbers": true,
+  "word_wrap": false,
+  "tab_size": 4,
+  "insert_spaces": true
+}

@@ -1,0 +1,94 @@
+================================================================================
+OWNCODE KNOWLEDGE GUIDE — agent/models/ (Model Catalog, Smart Router & Optimizer)
+================================================================================
+
+1. PURPOSE OF THIS FOLDER
+-------------------------
+The `agent/models/` subfolder manages AI model metadata, capability scoring,
+local-first smart routing, and hardware/VRAM optimization:
+  • `model_catalog_and_router.py`:
+    - `ModelCatalog` & `ModelRegistry`: Tracks all discovered local GGUF/Ollama
+      models and cloud models along with their context windows and states.
+    - `ModelRouter`: Scores candidate models by task type (`simple_chat`,
+      `code_generation`, `debugging`, `architecture`) and enforces routing
+      policies (`local_only`, `automatic`, `manual`).
+    - `LLMOptimizer`: Detects system RAM, CPU cores, and GPU VRAM (`nvidia-smi`
+      via `hidden_subprocess_kwargs`) to tune context window, batch size, and
+      GPU layer offloading for local models.
+  • `model_center_and_adapters.py`:
+    - `ModelCenter` and model-specific adapters (`QwenModel`, `GeminiModel`,
+      `DeepSeekModel`).
+
+2. LIBRARIES USED IN `agent/models/`
+------------------------------------
+  • dataclasses / enum / typing : Strongly typed model capability and quality profiles.
+  • os / platform / subprocess  : Hardware/VRAM detection (`LLMOptimizer`).
+  • json / pathlib / time       : Model optimization caching and health tracking.
+
+3. MODULES, CLASSES & FUNCTIONS IN `agent/models/`
+--------------------------------------------------
+
+[1] agent/models/model_catalog_and_router.py
+    Role: Combines `BaseModel`, `ModelCapabilities`, `ModelProfile`, `ModelContext`,
+          `ModelCatalog`, `ModelHealth`, `ModelRegistry`, `ModelSelector`,
+          `ModelManager`, `ModelRouter`, and `LLMOptimizer`.
+    Classes:
+      • BaseModel — Abstract base class for AI models.
+        Key Methods: __init__, generate_response
+      • CapabilityInfo — Info about a single capability, including its icon (Part 15).
+      • ModelCapabilities — Constants for ALL standard model capabilities, with icons (Part 15).
+        Key Methods: get_icon
+      • ModelQualityProfile — Model quality scores for Part 23: displays stars for Coding/Reasoning/Speed/Creativity
+        Key Methods: to_stars
+      • ModelProfile — Metadata and capabilities of a specific AI model.
+      • ModelContextManager — Estimates token usage and validates context constraints.
+        Key Methods: estimate_tokens, fits_in_context
+      • ModelState — All possible model states.
+        Key Methods: get_icon
+      • CatalogEntry — Single entry in the model catalog.
+      • ModelCatalog — Permanent catalog of all supported models.
+        Key Methods: __init__, get_entry, get_all_entries, get_entries_by_provider, update_model_state, add_custom_model
+      • ModelHealth — Health metrics for a single model.
+        Key Methods: record_success, record_failure
+      • ModelRegistry — Manages registration, lifecycle, and querying of AI models.
+        Key Methods: __init__, register_model, register_model_from_provider, load_models_from_provider, enable_model, disable_model, get_profile, get_health, get_all_catalog_models, get_available_models, get_models_for_provider, get_provider_for_model
+      • ModelSelector — Scores and selects the best model for a task.
+        Key Methods: __init__, select_best_model
+      • ModelManager — Coordinates model selection, routing, and execution through the provider platform.
+        Key Methods: __init__, execute_request
+      • TaskType — Types of tasks the router can optimize for.
+      • ModelRouter — Smart model router that selects the appropriate model for the task.
+        Key Methods: __init__, select_best_model, dispatch, get_recommendation
+      • ResponseCache — LRU cache for LLM responses.
+        Key Methods: __init__, get, set, clear, get_stats
+      • ModelPreloader — Preloads the model the user is about to talk to, so the first message
+        Key Methods: __init__, keep_alive, set_active_model, preload_model, start_keep_alive, stop_keep_alive
+      • ContextOptimizer — Holds the context window size used for inference.
+        Key Methods: __init__, get_optimal_context, set_model_context, get_model_context
+      • LLMOptimizer — Main LLM performance optimizer.
+        Key Methods: __init__, switch_model, get_model_estimate, diagnostics, warm, save_settings, optimize_request, get_cached_response, cache_response, preload_preferred_models, stop, unload_on_exit
+    Functions:
+      • initialize_llm_optimizer(event_bus, provider, provider_registry) — Initialize LLM optimizer.
+
+[2] agent/models/model_center_and_adapters.py
+    Role: Combines `QwenModel`, `GeminiModel`, `DeepSeekModel`, and `ModelCenter`.
+    Classes:
+      • QwenModel — High-level interface for Qwen3 8B coding agent.
+        Key Methods: __init__, generate_response, generate_code, explain_code, debug_code, refactor_code, complete_code
+      • GeminiModel
+        Key Methods: __init__, generate_response
+      • DeepSeekModel
+        Key Methods: __init__, generate_response
+      • ModelCapabilities — Model capabilities derived from configuration.
+        Key Methods: from_config, to_dict
+      • ModelRating — Rating for a specific use case.
+        Key Methods: stars, star_html
+      • ModelInfo — Complete model information.
+        Key Methods: get_rating
+      • ModelCenter — Professional model management center.
+        Key Methods: __init__, get_all_models, get_model, get_enabled_models, get_provider_models, get_models_by_category, recommend_model, get_fallback_model, get_cost_estimate, get_response_time_estimate, get_task_type_from_prompt, get_provider_status
+    Functions:
+      • get_model_center() — Get the global model center instance.
+      • initialize_model_center(provider_registry, provider_manager, model_registry) — Initialize the global model center.
+      • reset_model_center() — Reset the global model center (for testing).
+================================================================================

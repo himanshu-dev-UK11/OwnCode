@@ -1,0 +1,114 @@
+{
+  "total_startup_time_ms": 10434.710400000313,
+  "total_phases": 8,
+  "bottlenecks_count": 4,
+  "bottlenecks": [
+    {
+      "name": "total_startup",
+      "duration_ms": 10434.41,
+      "parent": null,
+      "thread": "UI"
+    },
+    {
+      "name": "mainwindow_creation",
+      "duration_ms": 627.05,
+      "parent": "total_startup",
+      "thread": "UI"
+    },
+    {
+      "name": "window_show",
+      "duration_ms": 257.71,
+      "parent": "total_startup",
+      "thread": "UI"
+    },
+    {
+      "name": "qapplication_init",
+      "duration_ms": 191.67,
+      "parent": "total_startup",
+      "thread": "UI"
+    }
+  ],
+  "phases": [
+    {
+      "name": "total_startup",
+      "duration_ms": 10434.41,
+      "start_offset_ms": 0.29,
+      "parent": null,
+      "children": [
+        "validate_startup",
+        "qapplication_init",
+        "minimal_core_init",
+        "design_system_init",
+        "mainwindow_creation",
+        "window_show"
+      ],
+      "thread": "UI",
+      "exceeds_threshold": true
+    },
+    {
+      "name": "validate_startup",
+      "duration_ms": 4.47,
+      "start_offset_ms": 0.89,
+      "parent": "total_startup",
+      "children": [
+        "create_directories"
+      ],
+      "thread": "UI",
+      "exceeds_threshold": false
+    },
+    {
+      "name": "create_directories",
+      "duration_ms": 4.33,
+      "start_offset_ms": 0.95,
+      "parent": "validate_startup",
+      "children": [],
+      "thread": "UI",
+      "exceeds_threshold": false
+    },
+    {
+      "name": "qapplication_init",
+      "duration_ms": 191.67,
+      "start_offset_ms": 14.92,
+      "parent": "total_startup",
+      "children": [],
+      "thread": "UI",
+      "exceeds_threshold": true
+    },
+    {
+      "name": "minimal_core_init",
+      "duration_ms": 0.69,
+      "start_offset_ms": 206.6,
+      "parent": "total_startup",
+      "children": [],
+      "thread": "UI",
+      "exceeds_threshold": false
+    },
+    {
+      "name": "design_system_init",
+      "duration_ms": 2.92,
+      "start_offset_ms": 207.29,
+      "parent": "total_startup",
+      "children": [],
+      "thread": "UI",
+      "exceeds_threshold": false
+    },
+    {
+      "name": "mainwindow_creation",
+      "duration_ms": 627.05,
+      "start_offset_ms": 210.22,
+      "parent": "total_startup",
+      "children": [],
+      "thread": "UI",
+      "exceeds_threshold": true
+    },
+    {
+      "name": "window_show",
+      "duration_ms": 257.71,
+      "start_offset_ms": 837.28,
+      "parent": "total_startup",
+      "children": [],
+      "thread": "UI",
+      "exceeds_threshold": true
+    }
+  ]
+}

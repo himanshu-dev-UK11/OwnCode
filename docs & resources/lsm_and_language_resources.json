@@ -1,0 +1,802 @@
+{
+  "description": "Language Server Module (LSM/LSP) specifications, file extension mappings, and reference AI model profiles.",
+  "language_servers": {
+    "python": {
+      "server": "pylsp / in-process JediProvider",
+      "extensions": [
+        ".py",
+        ".pyw"
+      ]
+    },
+    "c_cpp": {
+      "server": "clangd",
+      "extensions": [
+        ".c",
+        ".cpp",
+        ".cc",
+        ".cxx",
+        ".h",
+        ".hpp"
+      ]
+    },
+    "javascript_typescript": {
+      "server": "typescript-language-server",
+      "extensions": [
+        ".js",
+        ".jsx",
+        ".ts",
+        ".tsx",
+        ".mjs"
+      ]
+    },
+    "rust": {
+      "server": "rust-analyzer",
+      "extensions": [
+        ".rs"
+      ]
+    },
+    "go": {
+      "server": "gopls",
+      "extensions": [
+        ".go"
+      ]
+    },
+    "java": {
+      "server": "jdtls",
+      "extensions": [
+        ".java"
+      ]
+    }
+  },
+  "reference_model_profiles": {
+    "deepseek_v3": {
+      "display_name": "DeepSeek V3",
+      "provider": "deepseek",
+      "model_id": "deepseek-chat",
+      "context_window": 128000,
+      "max_output_tokens": 8192,
+      "type": "cloud",
+      "supports_streaming": true,
+      "supports_tool_calling": true,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "supports_reasoning": true,
+      "supports_code_editing": true,
+      "supports_file_upload": false,
+      "supports_images": false,
+      "supports_audio": false,
+      "license": "Proprietary",
+      "cost_type": "paid",
+      "priority": 9,
+      "version": "3.0",
+      "tags": [
+        "coding",
+        "reasoning",
+        "cost-effective"
+      ]
+    },
+    "gemini_1_5_flash": {
+      "model_id": "gemini-1.5-flash",
+      "provider": "gemini",
+      "display_name": "Gemini 1.5 Flash",
+      "context_window": 1048576,
+      "max_output_tokens": 8192,
+      "type": "cloud",
+      "license": "Google Terms",
+      "cost_type": "free_tier",
+      "priority": 18,
+      "version": "1.5",
+      "tags": [
+        "fast",
+        "large_context",
+        "multimodal"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": true
+    },
+    "gemini_1_5_pro": {
+      "model_id": "gemini-1.5-pro",
+      "provider": "gemini",
+      "display_name": "Gemini 1.5 Pro",
+      "context_window": 2097152,
+      "max_output_tokens": 8192,
+      "type": "cloud",
+      "license": "Google Terms",
+      "cost_type": "free_tier",
+      "priority": 20,
+      "version": "1.5",
+      "tags": [
+        "powerful",
+        "large_context",
+        "multimodal"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": true
+    },
+    "gemini_2_0_flash": {
+      "model_id": "gemini-2.0-flash-exp",
+      "provider": "gemini",
+      "display_name": "Gemini 2.0 Flash (Experimental)",
+      "context_window": 1048576,
+      "max_output_tokens": 8192,
+      "type": "cloud",
+      "license": "Google Terms",
+      "cost_type": "free_tier",
+      "priority": 22,
+      "version": "2.0",
+      "tags": [
+        "latest",
+        "fast",
+        "multimodal",
+        "experimental"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": true
+    },
+    "gemini_2_5_pro": {
+      "display_name": "Gemini 2.5 Pro",
+      "provider": "gemini",
+      "model_id": "gemini-2.5-pro",
+      "context_window": 1048576,
+      "max_output_tokens": 8192,
+      "type": "cloud",
+      "supports_streaming": true,
+      "supports_tool_calling": true,
+      "supports_vision": true,
+      "supports_function_calling": true,
+      "supports_reasoning": true,
+      "supports_code_editing": true,
+      "supports_file_upload": true,
+      "supports_images": true,
+      "supports_audio": true,
+      "license": "Proprietary",
+      "cost_type": "paid",
+      "priority": 8,
+      "version": "2.5",
+      "tags": [
+        "reasoning",
+        "multimodal",
+        "coding"
+      ]
+    },
+    "llama_3_3": {
+      "display_name": "Llama 3.3",
+      "provider": "ollama",
+      "model_id": "llama3:8b",
+      "context_window": 8192,
+      "max_output_tokens": 4096,
+      "type": "local",
+      "supports_streaming": true,
+      "supports_tool_calling": true,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "supports_reasoning": false,
+      "supports_code_editing": true,
+      "supports_file_upload": false,
+      "supports_images": false,
+      "supports_audio": false,
+      "license": "Apache 2.0",
+      "cost_type": "free",
+      "priority": 5,
+      "version": "3.3",
+      "tags": [
+        "local",
+        "coding",
+        "fast"
+      ]
+    },
+    "ollama_codellama_7b": {
+      "model_id": "codellama:7b",
+      "provider": "ollama",
+      "display_name": "Code Llama 7B",
+      "context_window": 16384,
+      "max_output_tokens": 2048,
+      "type": "local",
+      "license": "Llama 2 Community License",
+      "cost_type": "free",
+      "priority": 13,
+      "version": "1.0",
+      "tags": [
+        "coding",
+        "code_completion",
+        "fast"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": false,
+      "supports_vision": false
+    },
+    "ollama_deepseek_coder_v2": {
+      "model_id": "deepseek-coder-v2:16b",
+      "provider": "ollama",
+      "display_name": "DeepSeek Coder V2 16B",
+      "context_window": 16384,
+      "max_output_tokens": 4096,
+      "type": "local",
+      "license": "DeepSeek License",
+      "cost_type": "free",
+      "priority": 14,
+      "version": "2.0",
+      "tags": [
+        "coding",
+        "code_generation",
+        "powerful"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": false
+    },
+    "ollama_gemma2_9b": {
+      "model_id": "gemma2:9b",
+      "provider": "ollama",
+      "display_name": "Gemma 2 9B",
+      "context_window": 8192,
+      "max_output_tokens": 2048,
+      "type": "local",
+      "license": "Gemma Terms",
+      "cost_type": "free",
+      "priority": 10,
+      "version": "2.0",
+      "tags": [
+        "general",
+        "google",
+        "efficient"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": false,
+      "supports_vision": false
+    },
+    "ollama_llama3_1_8b": {
+      "model_id": "llama3.1:8b",
+      "provider": "ollama",
+      "display_name": "Llama 3.1 8B",
+      "context_window": 128000,
+      "max_output_tokens": 4096,
+      "type": "local",
+      "license": "Llama 3.1 Community License",
+      "cost_type": "free",
+      "priority": 11,
+      "version": "3.1",
+      "tags": [
+        "general",
+        "large_context",
+        "fast"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": false
+    },
+    "ollama_llama3_2_3b": {
+      "model_id": "llama3.2:3b",
+      "provider": "ollama",
+      "display_name": "Llama 3.2 3B",
+      "context_window": 128000,
+      "max_output_tokens": 2048,
+      "type": "local",
+      "license": "Llama 3.2 Community License",
+      "cost_type": "free",
+      "priority": 8,
+      "version": "3.2",
+      "tags": [
+        "small",
+        "fast",
+        "efficient"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": false
+    },
+    "ollama_llama3_70b": {
+      "model_id": "llama3:70b",
+      "provider": "ollama",
+      "display_name": "Llama 3 70B",
+      "context_window": 8192,
+      "max_output_tokens": 2048,
+      "type": "local",
+      "license": "Llama 3 Community License",
+      "cost_type": "free",
+      "priority": 8,
+      "version": "3.0",
+      "tags": [
+        "general",
+        "chat",
+        "powerful"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": false,
+      "supports_vision": false
+    },
+    "ollama_llama3_8b": {
+      "model_id": "llama3:8b",
+      "provider": "ollama",
+      "display_name": "Llama 3 8B",
+      "context_window": 8192,
+      "max_output_tokens": 2048,
+      "type": "local",
+      "license": "Llama 3 Community License",
+      "cost_type": "free",
+      "priority": 10,
+      "version": "3.0",
+      "tags": [
+        "general",
+        "chat",
+        "fast"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": false,
+      "supports_vision": false
+    },
+    "ollama_mistral_7b": {
+      "model_id": "mistral:7b",
+      "provider": "ollama",
+      "display_name": "Mistral 7B",
+      "context_window": 8192,
+      "max_output_tokens": 2048,
+      "type": "local",
+      "license": "Apache 2.0",
+      "cost_type": "free",
+      "priority": 11,
+      "version": "0.1",
+      "tags": [
+        "general",
+        "chat",
+        "efficient"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": false,
+      "supports_vision": false
+    },
+    "ollama_nous_hermes": {
+      "model_id": "nous-hermes2:latest",
+      "provider": "ollama",
+      "display_name": "Nous Hermes 2",
+      "context_window": 8192,
+      "max_output_tokens": 2048,
+      "type": "local",
+      "license": "Apache 2.0",
+      "cost_type": "free",
+      "priority": 9,
+      "version": "2.0",
+      "tags": [
+        "general",
+        "chat",
+        "instruction"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": false,
+      "supports_vision": false
+    },
+    "ollama_phi3_mini": {
+      "model_id": "phi3:mini",
+      "provider": "ollama",
+      "display_name": "Phi-3 Mini",
+      "context_window": 4096,
+      "max_output_tokens": 2048,
+      "type": "local",
+      "license": "MIT",
+      "cost_type": "free",
+      "priority": 9,
+      "version": "3.0",
+      "tags": [
+        "small",
+        "fast",
+        "efficient"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": false,
+      "supports_vision": false
+    },
+    "ollama_qwen2_5_coder_7b": {
+      "model_id": "qwen2.5-coder:7b",
+      "provider": "ollama",
+      "display_name": "Qwen 2.5 Coder 7B",
+      "context_window": 32768,
+      "max_output_tokens": 4096,
+      "type": "local",
+      "license": "Apache 2.0",
+      "cost_type": "free",
+      "priority": 15,
+      "version": "2.5",
+      "tags": [
+        "coding",
+        "code_generation",
+        "fast"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": false
+    },
+    "ollama_qwen3_8b": {
+      "model_id": "qwen3:8b",
+      "provider": "ollama",
+      "display_name": "Qwen 3 8B",
+      "context_window": 32768,
+      "max_output_tokens": 4096,
+      "type": "local",
+      "license": "Apache 2.0",
+      "cost_type": "free",
+      "priority": 12,
+      "version": "3.0",
+      "tags": [
+        "general",
+        "chat",
+        "multilingual"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": false
+    },
+    "ollama_starcoder2": {
+      "model_id": "starcoder2:15b",
+      "provider": "ollama",
+      "display_name": "StarCoder2 15B",
+      "context_window": 16384,
+      "max_output_tokens": 4096,
+      "type": "local",
+      "license": "BigCode OpenRAIL-M",
+      "cost_type": "free",
+      "priority": 13,
+      "version": "2.0",
+      "tags": [
+        "coding",
+        "code_completion",
+        "multilingual"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": false,
+      "supports_vision": false
+    },
+    "openrouter_claude_sonnet": {
+      "model_id": "anthropic/claude-3.5-sonnet",
+      "provider": "openrouter",
+      "display_name": "Claude 3.5 Sonnet (OpenRouter)",
+      "context_window": 200000,
+      "max_output_tokens": 8192,
+      "type": "cloud",
+      "license": "Anthropic Terms",
+      "cost_type": "paid",
+      "priority": 26,
+      "version": "3.5",
+      "tags": [
+        "powerful",
+        "large_context",
+        "coding"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": true
+    },
+    "openrouter_deepseek_coder": {
+      "model_id": "deepseek/deepseek-coder",
+      "provider": "openrouter",
+      "display_name": "DeepSeek Coder (OpenRouter)",
+      "context_window": 16384,
+      "max_output_tokens": 4096,
+      "type": "cloud",
+      "license": "DeepSeek License",
+      "cost_type": "paid",
+      "priority": 17,
+      "version": "1.0",
+      "tags": [
+        "coding",
+        "code_generation",
+        "efficient"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": false
+    },
+    "openrouter_gpt4_turbo": {
+      "model_id": "openai/gpt-4-turbo",
+      "provider": "openrouter",
+      "display_name": "GPT-4 Turbo (OpenRouter)",
+      "context_window": 128000,
+      "max_output_tokens": 4096,
+      "type": "cloud",
+      "license": "OpenAI Terms",
+      "cost_type": "paid",
+      "priority": 25,
+      "version": "4",
+      "tags": [
+        "powerful",
+        "large_context",
+        "reasoning"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": true
+    },
+    "openrouter_llama3_70b": {
+      "model_id": "meta-llama/llama-3-70b-instruct",
+      "provider": "openrouter",
+      "display_name": "Llama 3 70B Instruct (OpenRouter)",
+      "context_window": 8192,
+      "max_output_tokens": 2048,
+      "type": "cloud",
+      "license": "Llama 3 Community License",
+      "cost_type": "paid",
+      "priority": 19,
+      "version": "3.0",
+      "tags": [
+        "powerful",
+        "open_source",
+        "general"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": false
+    },
+    "openrouter_mixtral_8x7b": {
+      "model_id": "mistralai/mixtral-8x7b-instruct",
+      "provider": "openrouter",
+      "display_name": "Mixtral 8x7B Instruct (OpenRouter)",
+      "context_window": 32768,
+      "max_output_tokens": 4096,
+      "type": "cloud",
+      "license": "Apache 2.0",
+      "cost_type": "paid",
+      "priority": 18,
+      "version": "1.0",
+      "tags": [
+        "powerful",
+        "moe",
+        "efficient"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": false
+    },
+    "openrouter_qwen2_5_72b": {
+      "model_id": "qwen/qwen-2.5-72b-instruct",
+      "provider": "openrouter",
+      "display_name": "Qwen 2.5 72B Instruct (OpenRouter)",
+      "context_window": 32768,
+      "max_output_tokens": 8192,
+      "type": "cloud",
+      "license": "Apache 2.0",
+      "cost_type": "paid",
+      "priority": 21,
+      "version": "2.5",
+      "tags": [
+        "powerful",
+        "coding",
+        "multilingual"
+      ],
+      "supports_streaming": true,
+      "supports_function_calling": true,
+      "supports_vision": false
+    },
+    "qwen3_coder": {
+      "display_name": "Qwen 2.5 Coder 7B",
+      "provider": "ollama",
+      "model_id": "qwen2.5-coder:7b",
+      "context_window": 32768,
+      "max_output_tokens": 8192,
+      "type": "local",
+      "supports_streaming": true,
+      "supports_tool_calling": false,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "supports_reasoning": false,
+      "supports_code_editing": true,
+      "supports_file_upload": false,
+      "supports_images": false,
+      "supports_audio": false,
+      "license": "Apache 2.0",
+      "cost_type": "free",
+      "priority": 15,
+      "version": "2.5",
+      "tags": [
+        "coding",
+        "local",
+        "ollama",
+        "fast"
+      ]
+    }
+  },
+  "default_provider_configs": {
+    "anthropic": {
+      "provider_name": "anthropic",
+      "endpoint": "https://api.anthropic.com/v1",
+      "auth_type": "api_key",
+      "api_key": "",
+      "enabled": false,
+      "priority": 8,
+      "default_model": "claude-3-5-sonnet-20241022",
+      "timeout_seconds": 30,
+      "retry_count": 3,
+      "supports_streaming": true,
+      "supports_tool_calling": true,
+      "supports_vision": true,
+      "supports_function_calling": true,
+      "connection_status": "uninitialized"
+    },
+    "cerebras": {
+      "provider_name": "cerebras",
+      "endpoint": "https://api.cerebras.ai/v1",
+      "auth_type": "api_key",
+      "api_key": "",
+      "enabled": false,
+      "priority": 4,
+      "default_model": "llama3.1-8b",
+      "timeout_seconds": 30,
+      "retry_count": 3,
+      "supports_streaming": true,
+      "supports_tool_calling": false,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "connection_status": "uninitialized"
+    },
+    "custom": {
+      "provider_name": "custom",
+      "endpoint": "http://localhost:8000/v1",
+      "auth_type": "api_key",
+      "api_key": "",
+      "enabled": false,
+      "priority": 1,
+      "default_model": "",
+      "timeout_seconds": 30,
+      "retry_count": 3,
+      "supports_streaming": true,
+      "supports_tool_calling": false,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "connection_status": "uninitialized"
+    },
+    "deepinfra": {
+      "provider_name": "deepinfra",
+      "endpoint": "https://api.deepinfra.com/v1/openai",
+      "auth_type": "api_key",
+      "api_key": "",
+      "enabled": false,
+      "priority": 6,
+      "default_model": "meta-llama/Meta-Llama-3-8B-Instruct",
+      "timeout_seconds": 30,
+      "retry_count": 3,
+      "supports_streaming": true,
+      "supports_tool_calling": false,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "connection_status": "uninitialized"
+    },
+    "fireworks": {
+      "provider_name": "fireworks",
+      "endpoint": "https://api.fireworks.ai/inference/v1",
+      "auth_type": "api_key",
+      "api_key": "",
+      "enabled": false,
+      "priority": 3,
+      "default_model": "accounts/fireworks/models/llama-v3p1-8b-instruct",
+      "timeout_seconds": 30,
+      "retry_count": 3,
+      "supports_streaming": true,
+      "supports_tool_calling": false,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "connection_status": "uninitialized"
+    },
+    "gemini": {
+      "provider_name": "gemini",
+      "endpoint": "https://generativelanguage.googleapis.com/v1beta",
+      "auth_type": "api_key",
+      "enabled": false,
+      "priority": 5,
+      "default_model": "gemini-1.5-flash",
+      "timeout_seconds": 30,
+      "retry_count": 3,
+      "supports_streaming": true,
+      "supports_tool_calling": true,
+      "supports_vision": true,
+      "supports_function_calling": true
+    },
+    "groq": {
+      "provider_name": "groq",
+      "endpoint": "https://api.groq.com/openai/v1",
+      "auth_type": "api_key",
+      "api_key": "",
+      "enabled": false,
+      "priority": 7,
+      "default_model": "llama3-8b-8192",
+      "timeout_seconds": 30,
+      "retry_count": 3,
+      "supports_streaming": true,
+      "supports_tool_calling": true,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "connection_status": "uninitialized"
+    },
+    "llama_cpp": {
+      "provider_name": "llama_cpp",
+      "endpoint": "http://127.0.0.1:8080/v1",
+      "auth_type": "none",
+      "enabled": true,
+      "priority": 100,
+      "default_model": "qwen2.5-coder-7b-instruct-q4_k_m",
+      "timeout_seconds": 120,
+      "retry_count": 1,
+      "supports_streaming": true,
+      "supports_tool_calling": false,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "options": {
+        "model_directory": "D:\\llama_models",
+        "server_executable": "D:\\llama_cpp_cuda\\llama-server.exe",
+        "port": 8080,
+        "startup_timeout_seconds": 180,
+        "stop_owned_server_on_exit": true,
+        "context_size": 8192,
+        "threads": 20,
+        "threads_batch": 20,
+        "gpu_layers": "auto",
+        "device": "CUDA0",
+        "fit": "on",
+        "fit_target_mib": 256,
+        "flash_attention": "on",
+        "batch_size": 2048,
+        "ubatch_size": 512
+      }
+    },
+    "ollama": {
+      "provider_name": "ollama",
+      "endpoint": "http://localhost:11434",
+      "auth_type": "none",
+      "enabled": true,
+      "priority": 10,
+      "default_model": "qwen2.5-coder:7b",
+      "timeout_seconds": 120,
+      "retry_count": 3,
+      "supports_streaming": true,
+      "supports_tool_calling": true,
+      "supports_vision": false,
+      "supports_function_calling": true
+    },
+    "openai": {
+      "provider_name": "openai",
+      "endpoint": "https://api.openai.com/v1",
+      "auth_type": "api_key",
+      "api_key": "",
+      "enabled": false,
+      "priority": 9,
+      "default_model": "gpt-4o-mini",
+      "timeout_seconds": 30,
+      "retry_count": 3,
+      "supports_streaming": true,
+      "supports_tool_calling": true,
+      "supports_vision": true,
+      "supports_function_calling": true,
+      "connection_status": "uninitialized"
+    },
+    "qwen": {
+      "provider_name": "qwen",
+      "endpoint": "http://localhost:11434",
+      "auth_type": "none",
+      "enabled": true,
+      "priority": 15,
+      "default_model": "qwen2.5-coder:7b",
+      "timeout_seconds": 120,
+      "retry_count": 3,
+      "supports_streaming": true,
+      "supports_tool_calling": false,
+      "supports_vision": false,
+      "supports_function_calling": true
+    },
+    "together": {
+      "provider_name": "together",
+      "endpoint": "https://api.together.xyz/v1",
+      "auth_type": "api_key",
+      "api_key": "",
+      "enabled": false,
+      "priority": 2,
+      "default_model": "meta-llama/Meta-Llama-3.1-8B-Instruct-Turbo",
+      "timeout_seconds": 30,
+      "retry_count": 3,
+      "supports_streaming": true,
+      "supports_tool_calling": false,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "connection_status": "uninitialized"
+    }
+  }
+}

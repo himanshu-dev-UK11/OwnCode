@@ -1,0 +1,43 @@
+================================================================================
+OWNCODE KNOWLEDGE GUIDE — docs & resources/ (Docs, LSM Specs & Verification Tests)
+================================================================================
+
+1. PURPOSE OF THIS FOLDER
+-------------------------
+The `docs & resources/` folder consolidates all project documentation, Language
+Server Module (LSM/LSP) & model configuration templates, and the automated
+verification test suite into a single clean reference directory.
+
+2. FILES IN `docs & resources/`
+-------------------------------
+  • `owncode_logo.ico` & `owncode_logo.png`
+      Custom multi-resolution 'OC' desktop application icon and badge used by
+      `OwnCode.exe`, the Windows taskbar, and the IDE TitleBar.
+
+  • `PROJECT_ARCHITECTURE_AND_GUIDE.md`
+      Complete overview of OwnCode's 6-folder architecture (`core/`, `agent/`,
+      `ui/`, `tools/`, `docs & resources/`, `logs/`), startup pipeline, and UI/UX
+      design principles.
+
+  • `LOCAL_LLM_AND_PROVIDERS_GUIDE.md`
+      Step-by-step documentation for configuring local `.gguf` models with
+      `llama.cpp` (`llama-server`), `Ollama`, `Qwen`, and cloud API providers.
+
+  • `lsm_and_language_resources.json`
+      Consolidated JSON resource file containing:
+        1. `language_servers`: LSM/LSP server mappings (`pylsp` / `JediProvider`,
+           `clangd`, `typescript-language-server`, `rust-analyzer`, `gopls`, `jdtls`)
+           and their file extensions.
+        2. `default_provider_configs`: Default configuration schemas for all 12
+           AI providers.
+        3. `reference_model_profiles`: Reference capability profiles for local
+           and cloud coding models.
+
+  • `verification_tests.py`
+      Consolidated automated test suite combining all 24 unit and integration
+      tests (`RunManagerTests`, `TestProgramTester`, `TestTerminalSelfTestAndProcessUtils`,
+      `TestIntelligenceIndexers`, `LlamaCppLoaderTests`, `LlamaCppProviderTests`,
+      `ModelSelectionTests`).
+      Run anytime with:
+          python "docs & resources/verification_tests.py" -v
+================================================================================
